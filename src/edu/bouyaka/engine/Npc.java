@@ -18,7 +18,7 @@ public class Npc extends Concrete {
 		type = "Npc";
 	}
 
-	public void main() {
+	public void update() {
 		frameIncr();
 	}
 

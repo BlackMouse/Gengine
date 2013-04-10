@@ -5,7 +5,7 @@ public abstract class Entity {
 	public boolean enabled;
 	protected String type;
 
-	public void main() {
+	public void update() {
 
 	}
 

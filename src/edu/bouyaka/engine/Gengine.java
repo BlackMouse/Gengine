@@ -10,14 +10,13 @@ import javax.swing.JFrame;
 
 public class Gengine {
 
-	public long lastUpdate, lastFps, lastTick, time;
 	public int displayWidth = 1280, displayHeight = 720, screenWidth,
 			screenHeight;
 	public String pack;
 	public String rev, shownFps = "5";
 	public int npcAmount, spriteAmount;
 	public int tileWidth, tileHeight, blurAmount, nHTiles, nVTiles;
-	public double tick = 1, fps = 60;
+	public double tick = 1, fps = 60, tickTime;
 	public boolean[] keyboard = new boolean[256];
 	public boolean[][] entityEnabled;
 	public boolean vSync = true, fullScreen = false, interfaceEdited;
@@ -87,12 +86,12 @@ public class Gengine {
 	}
 
 	public void update() {
-		if (refreshLoop.isProcessed()
-				&& updateEntityLoop.isProcessed()) {
+		if (refreshLoop.isProcessed() && updateEntityLoop.isProcessed()) {
 			refreshTimer.newTimeKey();
 			updateEntityLoop.run();
 			refreshLoop.run();
-			tick =  15* refreshTimer.delta() / (1E8);
+			tick = 15 * refreshTimer.delta() / (1E8);
+			tickTime = tickTime + tick;
 		}
 
 	}

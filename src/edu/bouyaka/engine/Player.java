@@ -17,7 +17,7 @@ public class Player extends Concrete {
 		type = "Player";
 	}
 
-	public void main() {
+	public void update() {
 		move();
 		frameIncr();
 	}
