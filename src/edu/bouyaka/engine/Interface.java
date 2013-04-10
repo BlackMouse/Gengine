@@ -35,7 +35,7 @@ public class Interface extends Abstract {
 	}
 
 	// Actualisation de l'affichage
-	public void main() {
+	public void update() {
 		clean();
 		for (int id = 0; id <= maxId; id++) {
 			if(engine.entityEnabled[4][id])

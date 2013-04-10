@@ -17,7 +17,7 @@ public class Item extends Concrete {
 		type = "Item";
 	}
 
-	public void main() {
+	public void update() {
 		frameIncr();
 	}
 

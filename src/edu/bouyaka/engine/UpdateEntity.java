@@ -18,7 +18,7 @@ public class UpdateEntity extends Thread {
 			for (int entity = 0; entity < engine.entityArray[type].length; entity++) {
 				if (engine.entityArray[type][entity] != null)
 					if (engine.entityArray[type][entity].enabled)
-						engine.entityArray[type][entity].main();
+						engine.entityArray[type][entity].update();
 			}
 		}
 		for (int typeA = 0; typeA < 3; typeA++) {
