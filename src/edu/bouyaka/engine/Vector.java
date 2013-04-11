@@ -2,23 +2,35 @@ package edu.bouyaka.engine;
 
 public class Vector extends Abstract {
 	Vector attachedVector;
-	double x, y, lastUpdate;
-	Vector vSpeed[];
+	double x = 1, y = 1, lastUpdate;
 
-	void setX(double X) {
+	public void setX(double X) {
 		x = X;
 	}
 
-	void setY(double Y) {
+	public void setY(double Y) {
 		y = Y;
 	}
 
-	double getX() {
+	public void set(double X, double Y) {
+		y = Y;
+		x = X;
+	}
+
+	public double getX() {
 		return x;
 	}
 
-	double getY() {
+	public double getY() {
 		return y;
+	}
+
+	public double getRX() {
+		return x * engine.vRef.getX();
+	}
+
+	public double getRY() {
+		return y * engine.vRef.getY();
 	}
 
 	public void attachVector(Vector attachedVector) {
@@ -26,6 +38,7 @@ public class Vector extends Abstract {
 	}
 
 	public void update() {
+		if(attachedVector!=null)
 		applyVector(attachedVector, lastUpdate - engine.tickTime);
 		lastUpdate = engine.tickTime;
 	}

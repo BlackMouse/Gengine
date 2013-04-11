@@ -1,7 +1,8 @@
 package edu.bouyaka.engine;
 
 public class Concrete extends Entity {
-	protected double[] objectPos = new double[2];
+	protected Vector pos = new Vector(), spd = new Vector(),
+			acc = new Vector();
 
 	public boolean collisionEnabled = true;
 
@@ -30,21 +31,29 @@ public class Concrete extends Entity {
 
 	public void moveDownLeft(int n) {
 	}
-	
-	public boolean isTouchingEdge(){
+
+	public boolean isTouchingEdge() {
 		return false;
 	}
 
-	public double[] getPos() {
-		return objectPos;
+	public Vector getPos() {
+		return pos;
 	}
 
 	public double getX() {
-		return objectPos[0];
+		return pos.getX();
 	}
 
 	public double getY() {
-		return objectPos[1];
+		return pos.getY();
+	}
+
+	public void setX(double X) {
+		pos.setX(X);
+	}
+
+	public void setY(double Y) {
+		pos.setY(Y);
 	}
 
 	public int getWidth() {
@@ -55,15 +64,15 @@ public class Concrete extends Entity {
 		return 0;
 	}
 
-	
 	/*
 	 * DAh Dah DAh
+	 * 
 	 * @param x como que tal
+	 * 
 	 * @param y Baila bamba
 	 */
-	public void setPos(int x, int y) {
-		objectPos[0] = x;
-		objectPos[1] = y;
+	public void setPos(double x, double y) {
+		pos.set(x, y);
 
 	}
 

@@ -15,8 +15,6 @@ public class Button extends Concrete {
 	private String text;
 	private int textSize;
 
-
-
 	public void setSize(int rW, int rH) {
 		this.rW = rW;
 		this.rH = rH;
@@ -56,11 +54,12 @@ public class Button extends Concrete {
 	public void show() {
 
 		g.setColor(buttonColor);
-		g.fillRect((int)objectPos[0],(int) objectPos[1], rW, rH);
+		g.fillRect((int) pos.getX(), (int) pos.getY(), rW, rH);
 		g.setColor(textColor);
 		g.setFont(f);
 		try {
-			g.drawString(text, (int)objectPos[0] + 1,(int) (objectPos[1] + (rH + textSize) / 2 - 1));
+			g.drawString(text, (int) pos.getX() + 1, (int) (pos.getY()
+					+ (rH + textSize) / 2 - 1));
 		} catch (Exception e) {
 		}
 	}

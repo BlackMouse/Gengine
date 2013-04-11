@@ -12,7 +12,7 @@ public class Item extends Concrete {
 	private int[] spriteSize = new int[2];
 
 	public Item() {
-		movings = new RegularM(objectPos, spriteSize, engine, this);
+		movings = new RegularM(pos, spriteSize, engine, this);
 		spriteDisplayer = new RegularSD();
 		type = "Item";
 	}
@@ -24,11 +24,11 @@ public class Item extends Concrete {
 	public void show() {
 		engine.display.drawImage(
 				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (objectPos[0] - spriteSize[0] / 2),
-				(int) (objectPos[1] - spriteSize[1] / 2));
+				(int) (pos.getX() - spriteSize[0] / 2),
+				(int) (pos.getY() - spriteSize[1] / 2));
 		engine.display.setColor(Color.green);
-		engine.display.drawRect((int) (objectPos[0] - spriteSize[0] / 2),
-				(int) (objectPos[1] - spriteSize[1] / 2), spriteSize[0],
+		engine.display.drawRect((int) (pos.getX() - spriteSize[0] / 2),
+				(int) (pos.getY() - spriteSize[1] / 2), spriteSize[0],
 				spriteSize[1]);
 	}
 
@@ -66,8 +66,8 @@ public class Item extends Concrete {
 		movings.moveDownLeft(n);
 	}
 
-	public double[] getPos() {
-		return objectPos;
+	public Vector getPos() {
+		return pos;
 	}
 
 	public void move(int direction) {
@@ -151,10 +151,10 @@ public class Item extends Concrete {
 	}
 
 	public boolean isTouchingEdge() {
-		if (objectPos[0] - spriteSize[0] / 2 <= 0
-				|| objectPos[1] - spriteSize[1] / 2 <= 0
-				|| objectPos[0] + spriteSize[0] / 2 >= 0
-				|| objectPos[1] + spriteSize[1] / 2 >= 0)
+		if (pos.getX() - spriteSize[0] / 2 <= 0
+				|| pos.getY() - spriteSize[1] / 2 <= 0
+				|| pos.getX() + spriteSize[0] / 2 >= 0
+				|| pos.getY() + spriteSize[1] / 2 >= 0)
 			return true;
 		return false;
 	}

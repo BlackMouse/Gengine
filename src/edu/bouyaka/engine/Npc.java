@@ -13,7 +13,7 @@ public class Npc extends Concrete {
 	private int[] spriteSize = new int[2];
 
 	public Npc() {
-		movings = new RegularM(objectPos, spriteSize, engine, this);
+		movings = new RegularM(pos, spriteSize, engine, this);
 		spriteDisplayer = new RegularSD();
 		type = "Npc";
 	}
@@ -25,11 +25,11 @@ public class Npc extends Concrete {
 	public void show() {
 		engine.display.drawImage(
 				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (objectPos[0] - spriteSize[0] / 2),
-				(int) (objectPos[1] - spriteSize[1] / 2));
+				(int) (pos.getX() - spriteSize[0] / 2),
+				(int) (pos.getY() - spriteSize[1] / 2));
 		engine.display.setColor(Color.green);
-		engine.display.drawRect((int) (objectPos[0] - spriteSize[0] / 2),
-				(int) (objectPos[1] - spriteSize[1] / 2), spriteSize[0],
+		engine.display.drawRect((int) (pos.getX() - spriteSize[0] / 2),
+				(int) (pos.getY() - spriteSize[1] / 2), spriteSize[0],
 				spriteSize[1]);
 	}
 

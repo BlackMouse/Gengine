@@ -2,23 +2,21 @@ package edu.bouyaka.engine;
 
 public class Assembly extends Item {
 	protected Item[] items;
-	protected int[][] itemsPos;
+	protected Vector[] itemsPos;
 
 	public Assembly(int n) {
 		items = new Item[n];
-		itemsPos = new int[n][];
+		itemsPos = new Vector[n];
 
 	}
 
 	public void show() {
 		for (int id = 0; id < items.length; id++) {
-			items[id].setPos((int) objectPos[0] + itemsPos[id][0],
-					(int) objectPos[1] + itemsPos[id][1]);
+			items[id].setPos((int) pos.getX() + itemsPos[id].getX(),
+					(int) pos.getY() + itemsPos[id].getY());
 
 			items[id].show();
 		}
 	}
-
-	
 
 }

@@ -12,7 +12,7 @@ public class Player extends Concrete {
 	private int[] spriteSize = new int[2];
 
 	public Player() {
-		movings = new KeyControlledM(objectPos, spriteSize, engine, this);
+		movings = new KeyControlledM(pos, spriteSize, engine, this);
 		spriteDisplayer = new RegularSD();
 		type = "Player";
 	}
@@ -26,11 +26,11 @@ public class Player extends Concrete {
 
 		engine.display.drawImage(
 				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (objectPos[0] - spriteSize[0] / 2),
-				(int) (objectPos[1] - spriteSize[1] / 2));
+				(int) (pos.getX() - spriteSize[0] / 2),
+				(int) (pos.getY() - spriteSize[1] / 2));
 		engine.display.setColor(Color.green);
-		engine.display.drawRect((int) (objectPos[0] - spriteSize[0] / 2),
-				(int) (objectPos[1] - spriteSize[1] / 2), spriteSize[0],
+		engine.display.drawRect((int) (pos.getX() - spriteSize[0] / 2),
+				(int) (pos.getY() - spriteSize[1] / 2), spriteSize[0],
 				spriteSize[1]);
 	}
 
@@ -68,8 +68,8 @@ public class Player extends Concrete {
 		movings.moveDownLeft(n);
 	}
 
-	public double[] getPos() {
-		return objectPos;
+	public Vector getPos() {
+		return pos;
 	}
 
 	public void move() {

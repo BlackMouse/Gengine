@@ -15,7 +15,7 @@ public class Gengine {
 	public String pack;
 	public String rev, shownFps = "5";
 	public int npcAmount, spriteAmount;
-	public int tileWidth, tileHeight, blurAmount, nHTiles, nVTiles;
+	public int blurAmount, nHTiles, nVTiles;
 	public double tick = 1, fps = 60, tickTime;
 	public boolean[] keyboard = new boolean[256];
 	public boolean[][] entityEnabled;
@@ -27,6 +27,7 @@ public class Gengine {
 	private UpdateScreen refreshLoop;
 	private UpdateEntity updateEntityLoop;
 	private Timer refreshTimer;
+	public Vector vRef = new Vector();
 
 	// Entity[0]=Players array
 	// Entity[1]=Npc array
