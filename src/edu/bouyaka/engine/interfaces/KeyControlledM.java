@@ -111,28 +111,28 @@ public class KeyControlledM implements Movings {
 	}
 
 	public void move() {
-		if (engine.keyboard[upKey] && engine.keyboard[leftKey]) {
+		if (engine.keyboard.keyP(upKey) && engine.keyboard.keyP(leftKey)) {
 			moveUpLeft(2);
 
-		} else if (engine.keyboard[upKey] && engine.keyboard[rightKey]) {
+		} else if (engine.keyboard.keyP(upKey) && engine.keyboard.keyP(rightKey)) {
 			moveUpRight(2);
 
-		} else if (engine.keyboard[downKey] && engine.keyboard[leftKey]) {
+		} else if (engine.keyboard.keyP(downKey) && engine.keyboard.keyP(leftKey)) {
 			moveDownLeft(2);
 
-		} else if (engine.keyboard[downKey] && engine.keyboard[rightKey]) {
+		} else if (engine.keyboard.keyP(downKey) && engine.keyboard.keyP(rightKey)) {
 			moveDownRight(2);
 
-		} else if (engine.keyboard[upKey])
+		} else if (engine.keyboard.keyP(upKey))
 			moveUp(2);
 
-		else if (engine.keyboard[downKey])
+		else if (engine.keyboard.keyP(downKey))
 			moveDown(2);
 
-		else if (engine.keyboard[leftKey])
+		else if (engine.keyboard.keyP(leftKey))
 			moveLeft(2);
 
-		else if (engine.keyboard[rightKey])
+		else if (engine.keyboard.keyP(rightKey))
 			moveRight(2);
 
 	}

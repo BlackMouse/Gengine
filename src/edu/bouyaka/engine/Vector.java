@@ -33,13 +33,26 @@ public class Vector extends Abstract {
 		return y * engine.vRef.getY();
 	}
 
+	public void setRX(double X) {
+		x = X / engine.vRef.getX();
+	}
+
+	public void setRY(double Y) {
+		y = Y / engine.vRef.getY();
+	}
+
+	public void setR(double X, double Y) {
+		x = X / engine.vRef.getX();
+		y = Y / engine.vRef.getY();
+	}
+
 	public void attachVector(Vector attachedVector) {
 		this.attachedVector = attachedVector;
 	}
 
 	public void update() {
-		if(attachedVector!=null)
-		applyVector(attachedVector, lastUpdate - engine.tickTime);
+		if (attachedVector != null)
+			applyVector(attachedVector, lastUpdate - engine.tickTime);
 		lastUpdate = engine.tickTime;
 	}
 

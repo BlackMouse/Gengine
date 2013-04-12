@@ -38,7 +38,7 @@ public class Interface extends Abstract {
 	public void update() {
 		clean();
 		for (int id = 0; id <= maxId; id++) {
-			if(engine.entityEnabled[4][id])
+			if(buttonArray[id].enabled)
 			buttonArray[id].show();
 		}
 		engine.display.drawImage(interfaceContent, 0, 0);

@@ -3,8 +3,6 @@ package edu.bouyaka.engine;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -34,26 +32,11 @@ public class Display extends JPanel {
 		dG = (Graphics2D) displayedContent.createGraphics();
 
 		// Création d'une fonction d'enregistrement des touches enfoncées
-		this.addKeyListener(new KeyListener() {
-
-			// Action lors de l'appui
-			public void keyPressed(KeyEvent key) {
-				if(key.getKeyCode()!=524)
-				engine.keyboard[key.getKeyCode()] = true;
-				engine.Button(0).replaceText(""+key.getKeyCode());
-			}
-
-			// Action lors du relachement
-			public void keyReleased(KeyEvent key) {
-				engine.keyboard[key.getKeyCode()] = false;
-				engine.Button(0).replaceText(""+key.getKeyCode());
-			}
-
-			// Action lors de l'appui+relachement
-			public void keyTyped(KeyEvent key) {
-
-			}
-		});
+		this.addKeyListener(engine.keyboard);
+		// Création d'une fonction d'enregistrement des touches enfoncées
+		this.addMouseListener(engine.cursor);
+		// Création d'une fonction d'enregistrement des touches enfoncées
+		this.addMouseMotionListener(engine.cursor);
 	}
 
 	/*
@@ -91,6 +74,7 @@ public class Display extends JPanel {
 	}/*
 	 * Dessin d'un rectangle dans le tampon d'edition
 	 */
+
 	public void drawRect(int x1, int y1, int x2, int y2) {
 		cG.drawRect(x1, y1, x2, y2);
 	}
@@ -148,4 +132,5 @@ public class Display extends JPanel {
 		cG.setColor(backGroundColor);
 		cG.fillRect(0, 0, width, height);
 	}
+
 }

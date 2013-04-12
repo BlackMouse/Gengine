@@ -39,6 +39,7 @@ public class UpdateEntity extends Thread {
 
 			}
 		}
+		engine.cursor.update();
 		processed = true;
 
 	}

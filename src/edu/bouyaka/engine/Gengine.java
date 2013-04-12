@@ -17,7 +17,6 @@ public class Gengine {
 	public int npcAmount, spriteAmount;
 	public int blurAmount, nHTiles, nVTiles;
 	public double tick = 1, fps = 60, tickTime;
-	public boolean[] keyboard = new boolean[256];
 	public boolean[][] entityEnabled;
 	public boolean vSync = true, fullScreen = false, interfaceEdited;
 	public BufferedImage mainBackGround, mainContent, mainInterface;
@@ -28,6 +27,8 @@ public class Gengine {
 	private UpdateEntity updateEntityLoop;
 	private Timer refreshTimer;
 	public Vector vRef = new Vector();
+	public Cursor cursor = new Cursor();
+	public Keyboard keyboard = new Keyboard();
 
 	// Entity[0]=Players array
 	// Entity[1]=Npc array

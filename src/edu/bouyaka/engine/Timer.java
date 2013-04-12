@@ -2,7 +2,7 @@ package edu.bouyaka.engine;
 
 public class Timer {
 	private long timeKeyA, timeKeyB;
-	private int timeAmount;
+	private long timeAmount;
 
 	public double delta() {
 		return System.nanoTime() - timeKeyA;
@@ -12,7 +12,7 @@ public class Timer {
 		timeKeyA = System.nanoTime();
 	}
 
-	public void setDelay(int timeAmount) {
+	public void setDelay(long timeAmount) {
 		this.timeAmount = timeAmount;
 		timeKeyB = timeAmount + System.nanoTime();
 	}
