@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Display extends JPanel {
 	protected int width, height;
-	protected BufferedImage displayedContent, editedContent, mainInterface;
+	protected BufferedImage displayedContent, editedContent;
 	protected Graphics2D cG, dG;
 	protected Color backGroundColor;
 	private Gengine engine;
@@ -63,7 +63,6 @@ public class Display extends JPanel {
 
 		super.paintComponent(g);
 		g.drawImage(displayedContent, 0, 0, null);
-		g.drawImage(mainInterface, 0, 0, null);
 
 	}
 
@@ -140,13 +139,6 @@ public class Display extends JPanel {
 	 */
 	public void setBlankColor(Color color) {
 		backGroundColor = color;
-	}
-
-	/*
-	 * Définition de l'interface par défaut
-	 */
-	public void setInterface(BufferedImage mainInterface) {
-		this.mainInterface = mainInterface;
 	}
 
 	/*

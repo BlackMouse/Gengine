@@ -81,8 +81,6 @@ public class Gengine {
 		window.setUndecorated(true);
 		window.setResizable(false);
 		window.setVisible(true);
-		// Chargement de l'interface dans l'�cran
-		display.setInterface(Interface(0).get());
 
 	}
 
@@ -146,28 +144,28 @@ public class Gengine {
 	}
 
 	public void addPlayer(int id) {
-		if (id >= entityArray[0].length)
+		if (id > entityArray[0].length)
 			setPlayerAmount(entityArray[0].length + 5);
 		entityArray[0][id] = null;
 		entityArray[0][id] = new Player();
 	}
 
 	public void addNpc(int id) {
-		if (id >= entityArray[1].length)
+		if (id > entityArray[1].length)
 			setNpcAmount(entityArray[1].length + 5);
 		entityArray[1][id] = null;
 		entityArray[1][id] = new Npc();
 	}
 
 	public void addItem(int id) {
-		if (id >= entityArray[2].length)
+		if (id > entityArray[2].length)
 			setItemAmount(entityArray[2].length + 5);
 		entityArray[2][id] = null;
 		entityArray[2][id] = new Item();
 	}
 
 	public void addInterface(int id) {
-		if (id >= entityArray[3].length)
+		if (id > entityArray[3].length)
 			setInterfaceAmount(entityArray[3].length + 5);
 		entityArray[3][id] = null;
 		entityArray[3][id] = new Interface();
@@ -181,7 +179,7 @@ public class Gengine {
 	}
 
 	public void addSprite(int id, BufferedImage image, int nFrame, int frameRate) {
-		if (id >= entityArray[5].length)
+		if (id > entityArray[5].length)
 			setSpriteAmount(entityArray[5].length + 5);
 		entityArray[5][id] = null;
 		entityArray[5][id] = new Sprite(image, nFrame, frameRate);

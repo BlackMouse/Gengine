@@ -41,6 +41,7 @@ public class Interface extends Abstract {
 			if(engine.entityEnabled[4][id])
 			buttonArray[id].show();
 		}
+		engine.display.drawImage(interfaceContent, 0, 0);
 	}
 
 	// Nettoyage de l'interface
