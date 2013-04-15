@@ -8,16 +8,14 @@ public class Button extends Concrete {
 
 	Graphics g;
 	Font f;
-	private int rW;
-	private int rH;
 	private Color textColor;
 	private Color buttonColor;
 	private String text;
 	private int textSize;
 
 	public void setSize(int rW, int rH) {
-		this.rW = rW;
-		this.rH = rH;
+		this.size[0] = rW;
+		this.size[1] = rH;
 		engine.interfaceEdited = true;
 	}
 
@@ -43,7 +41,6 @@ public class Button extends Concrete {
 	public void addText(String text) {
 		this.text = this.text + text;
 		engine.interfaceEdited = true;
-		System.out.println(this.text);
 	}
 
 	public void replaceText(String text) {
@@ -54,12 +51,13 @@ public class Button extends Concrete {
 	public void show() {
 
 		g.setColor(buttonColor);
-		g.fillRect((int) pos.getX(), (int) pos.getY(), rW, rH);
+		g.fillRect((int) (pos.getRX() - size[0] / 2),
+				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
 		g.setColor(textColor);
 		g.setFont(f);
 		try {
-			g.drawString(text, (int) pos.getX() + 1, (int) (pos.getY()
-					+ (rH + textSize) / 2 - 1));
+			g.drawString(text, (int) pos.getRX() - size[0] / 2 + 1,
+					(int) pos.getRY()+size[1]/4);
 		} catch (Exception e) {
 		}
 	}

@@ -3,6 +3,8 @@ package edu.bouyaka.engine;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -131,6 +133,10 @@ public class Display extends JPanel {
 	public void blank() {
 		cG.setColor(backGroundColor);
 		cG.fillRect(0, 0, width, height);
+	}
+	public void setCursor(Sprite sprite) {
+		java.awt.Cursor c= Toolkit.getDefaultToolkit().createCustomCursor(sprite.get(0) , new Point(0, 0), "Cursor"); 
+		engine.display.setCursor(c);
 	}
 
 }

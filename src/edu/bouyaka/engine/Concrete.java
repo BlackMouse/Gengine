@@ -3,8 +3,9 @@ package edu.bouyaka.engine;
 public class Concrete extends Entity {
 	protected Vector pos = new Vector(), spd = new Vector(),
 			acc = new Vector();
+	protected int[] size = new int[2];
 
-	public boolean collisionEnabled = true;
+	public boolean collisionEnabled = true, fixed = false;
 
 	// Déplacement de l'entitée
 
@@ -48,6 +49,14 @@ public class Concrete extends Entity {
 		return pos.getY();
 	}
 
+	public double getRX() {
+		return pos.getRX();
+	}
+
+	public double getRY() {
+		return pos.getRY();
+	}
+
 	public void setX(double X) {
 		pos.setX(X);
 	}
@@ -56,12 +65,20 @@ public class Concrete extends Entity {
 		pos.setY(Y);
 	}
 
+	public void setRX(double X) {
+		pos.setRX(X);
+	}
+
+	public void setRY(double Y) {
+		pos.setRY(Y);
+	}
+
 	public int getWidth() {
-		return 0;
+		return size[0];
 	}
 
 	public int getHeight() {
-		return 0;
+		return size[1];
 	}
 
 	/*
@@ -76,7 +93,45 @@ public class Concrete extends Entity {
 
 	}
 
+	public void setRPos(double x, double y) {
+		pos.setR(x, y);
+
+	}
+
 	public void collideTo(Concrete E) {
 	}
 
+	public void checkMouse() {
+		double mX = engine.cursor.getPos().getRX(), mY = engine.cursor.getPos()
+				.getRY();
+
+		if (Math.abs(mX - getRX()) < size[0] / 2
+				&& Math.abs(mY - getRY()) < size[1] / 2) {
+			if (engine.cursor.getState(1))
+				leftPress(mX, mY);
+
+			if (engine.cursor.getState(3))
+				rightPress(mX, mY);
+
+			if (engine.cursor.getState(2))
+				middlePress(mX, mY);
+			hoover(mX, mY);
+		}
+	}
+
+	private void leftPress(double x, double y) {
+		setRPos(x, y);
+	}
+
+	private void middlePress(double x, double y) {
+		// setRPos(x, y);
+	}
+
+	private void rightPress(double x, double y) {
+		// setRPos(x, y);
+	}
+
+	private void hoover(double x, double y) {
+		// setRPos(x, y);
+	}
 }

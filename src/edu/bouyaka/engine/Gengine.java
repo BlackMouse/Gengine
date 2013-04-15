@@ -27,7 +27,7 @@ public class Gengine {
 	private UpdateEntity updateEntityLoop;
 	private Timer refreshTimer;
 	public Vector vRef = new Vector();
-	public Cursor cursor = new Cursor();
+	public Mouse cursor = new Mouse();
 	public Keyboard keyboard = new Keyboard();
 
 	// Entity[0]=Players array
@@ -145,42 +145,42 @@ public class Gengine {
 	}
 
 	public void addPlayer(int id) {
-		if (id > entityArray[0].length)
-			setPlayerAmount(entityArray[0].length + 5);
+		if (id >= entityArray[0].length)
+			setPlayerAmount(entityArray[0].length + 1);
 		entityArray[0][id] = null;
 		entityArray[0][id] = new Player();
 	}
 
 	public void addNpc(int id) {
-		if (id > entityArray[1].length)
-			setNpcAmount(entityArray[1].length + 5);
+		if (id >= entityArray[1].length)
+			setNpcAmount(entityArray[1].length + 1);
 		entityArray[1][id] = null;
 		entityArray[1][id] = new Npc();
 	}
 
 	public void addItem(int id) {
-		if (id > entityArray[2].length)
-			setItemAmount(entityArray[2].length + 5);
+		if (id >= entityArray[2].length)
+			setItemAmount(entityArray[2].length + 1);
 		entityArray[2][id] = null;
 		entityArray[2][id] = new Item();
 	}
 
 	public void addInterface(int id) {
-		if (id > entityArray[3].length)
-			setInterfaceAmount(entityArray[3].length + 5);
+		if (id >= entityArray[3].length)
+			setInterfaceAmount(entityArray[3].length + 1);
 		entityArray[3][id] = null;
 		entityArray[3][id] = new Interface();
 	}
 
 	public void addButton(int id) {
 		if (id >= entityArray[4].length)
-			setButtonAmount(entityArray[4].length + 5);
+			setButtonAmount(entityArray[4].length + 1);
 		entityArray[4][id] = null;
 		entityArray[4][id] = new Button();
 	}
 
 	public void addSprite(int id, BufferedImage image, int nFrame, int frameRate) {
-		if (id > entityArray[5].length)
+		if (id >= entityArray[5].length)
 			setSpriteAmount(entityArray[5].length + 5);
 		entityArray[5][id] = null;
 		entityArray[5][id] = new Sprite(image, nFrame, frameRate);

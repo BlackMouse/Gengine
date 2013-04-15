@@ -9,10 +9,9 @@ import edu.bouyaka.engine.interfaces.SpriteDisplayer;
 public class Player extends Concrete {
 	private Movings movings;
 	private SpriteDisplayer spriteDisplayer;
-	private int[] spriteSize = new int[2];
 
 	public Player() {
-		movings = new KeyControlledM(pos, spriteSize, engine, this);
+		movings = new KeyControlledM(pos, size, engine, this);
 		spriteDisplayer = new RegularSD();
 		type = "Player";
 	}
@@ -26,12 +25,11 @@ public class Player extends Concrete {
 
 		engine.display.drawImage(
 				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (pos.getX() - spriteSize[0] / 2),
-				(int) (pos.getY() - spriteSize[1] / 2));
+				(int) (pos.getRX() - size[0] / 2),
+				(int) (pos.getRY() - size[1] / 2));
 		engine.display.setColor(Color.green);
-		engine.display.drawRect((int) (pos.getX() - spriteSize[0] / 2),
-				(int) (pos.getY() - spriteSize[1] / 2), spriteSize[0],
-				spriteSize[1]);
+		engine.display.drawRect((int) (pos.getRX() - size[0] / 2),
+				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
 	}
 
 	// D�placement de l'entit�e
@@ -68,10 +66,6 @@ public class Player extends Concrete {
 		movings.moveDownLeft(n);
 	}
 
-	public Vector getPos() {
-		return pos;
-	}
-
 	public void move() {
 		movings.move();
 	}
@@ -92,15 +86,10 @@ public class Player extends Concrete {
 		movings.setRightKey(key);
 	}
 
-	public void setPos(int x, int y) {
-		movings.setPos(x, y);
-
-	}
-
 	public void setSpriteId(int id) {
 		spriteDisplayer.setSpriteId(id);
-		spriteSize[0] = engine.Sprite(id).getWidth();
-		spriteSize[1] = engine.Sprite(id).getHeight();
+		size[0] = engine.Sprite(id).getWidth();
+		size[1] = engine.Sprite(id).getHeight();
 		setNFrame(engine.Sprite(id).getNFrame());
 		setSFrameRate(engine.Sprite(id).getFrameRate());
 	}
@@ -129,11 +118,11 @@ public class Player extends Concrete {
 	}
 
 	public int getWidth() {
-		return spriteSize[0];
+		return size[0];
 	}
 
 	public int getHeight() {
-		return spriteSize[1];
+		return size[1];
 	}
 
 	public void frameIncr() {
@@ -145,8 +134,6 @@ public class Player extends Concrete {
 		spriteDisplayer.frameDecr();
 
 	}
-
-
 
 	public void enableCollision(boolean flag) {
 		collisionEnabled = flag;

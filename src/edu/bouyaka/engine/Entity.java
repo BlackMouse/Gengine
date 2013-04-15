@@ -6,11 +6,12 @@ public abstract class Entity {
 	protected String type;
 
 	public void update() {
-
 	}
 
 	public void show() {
+	}
 
+	public void checkMouse() {
 	}
 
 	public String getType() {

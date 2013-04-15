@@ -1,7 +1,8 @@
 package edu.bouyaka.engine;
 
-import java.awt.Color;
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Interface extends Abstract {
@@ -10,9 +11,6 @@ public class Interface extends Abstract {
 	private BufferedImage interfaceContent;
 	// Création d'une zone éditable grâce à drawInterface2D
 	static Graphics drawInterface;
-
-	// Couleur du fond de l'interface
-	private Color backGroundColor;
 
 	// Création d'un tableau de 10 boutons
 	private Button[] buttonArray = new Button[10];
@@ -28,7 +26,6 @@ public class Interface extends Abstract {
 			maxId = id;
 	}
 
-
 	// Récupération de l'interface sous forme d'une image
 	public BufferedImage get() {
 		return interfaceContent;
@@ -36,19 +33,21 @@ public class Interface extends Abstract {
 
 	// Actualisation de l'affichage
 	public void update() {
-		clean();
 		for (int id = 0; id <= maxId; id++) {
-			if(buttonArray[id].enabled)
-			buttonArray[id].show();
+			if (buttonArray[id].enabled)
+				buttonArray[id].show();
 		}
 		engine.display.drawImage(interfaceContent, 0, 0);
+		clean();
 	}
 
 	// Nettoyage de l'interface
 	public void clean() {
-		// Couleur du fond
-		drawInterface.setColor(backGroundColor);
-		drawInterface.fillRect(0, 0, engine.displayWidth, engine.displayHeight);
+		((Graphics2D) drawInterface).setComposite(AlphaComposite
+				.getInstance(AlphaComposite.CLEAR));
+		drawInterface.fillRect(0, 0, engine.displayWidth, engine.displayWidth);
+		((Graphics2D) drawInterface).setComposite(AlphaComposite
+				.getInstance(AlphaComposite.SRC_OVER));
 
 	}
 
@@ -57,8 +56,6 @@ public class Interface extends Abstract {
 				engine.displayHeight, BufferedImage.TYPE_INT_ARGB);
 		// Création d'un système de modification du tampon d'interface
 		drawInterface = interfaceContent.createGraphics();
-		// Définition de la couleur du fond
-		backGroundColor = new Color(255, 255, 255, 0);
 		clean();
 
 	}

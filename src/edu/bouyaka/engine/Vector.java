@@ -2,7 +2,7 @@ package edu.bouyaka.engine;
 
 public class Vector extends Abstract {
 	Vector attachedVector;
-	double x = 1, y = 1, lastUpdate;
+	double x = 0, y = 0, lastUpdate;
 
 	public void setX(double X) {
 		x = X;
@@ -13,8 +13,8 @@ public class Vector extends Abstract {
 	}
 
 	public void set(double X, double Y) {
-		y = Y;
 		x = X;
+		y = Y;
 	}
 
 	public double getX() {

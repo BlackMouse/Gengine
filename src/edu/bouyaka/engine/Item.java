@@ -9,10 +9,9 @@ import edu.bouyaka.engine.interfaces.SpriteDisplayer;
 public class Item extends Concrete {
 	private Movings movings;
 	private SpriteDisplayer spriteDisplayer;
-	private int[] spriteSize = new int[2];
 
 	public Item() {
-		movings = new RegularM(pos, spriteSize, engine, this);
+		movings = new RegularM(pos, size, engine, this);
 		spriteDisplayer = new RegularSD();
 		type = "Item";
 	}
@@ -24,12 +23,12 @@ public class Item extends Concrete {
 	public void show() {
 		engine.display.drawImage(
 				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (pos.getX() - spriteSize[0] / 2),
-				(int) (pos.getY() - spriteSize[1] / 2));
+				(int) (pos.getRX() - size[0] / 2),
+				(int) (pos.getRY() - size[1] / 2));
 		engine.display.setColor(Color.green);
-		engine.display.drawRect((int) (pos.getX() - spriteSize[0] / 2),
-				(int) (pos.getY() - spriteSize[1] / 2), spriteSize[0],
-				spriteSize[1]);
+		engine.display.drawRect((int) (pos.getRX() - size[0] / 2),
+				(int) (pos.getRY() - size[1] / 2), size[0],
+				size[1]);
 	}
 
 	// Déplacement de l'entitée
@@ -78,8 +77,8 @@ public class Item extends Concrete {
 
 	public void setSpriteId(int spriteId) {
 		spriteDisplayer.setSpriteId(spriteId);
-		spriteSize[0] = engine.Sprite(spriteId).getWidth();
-		spriteSize[1] = engine.Sprite(spriteId).getHeight();
+		size[0] = engine.Sprite(spriteId).getWidth();
+		size[1] = engine.Sprite(spriteId).getHeight();
 
 	}
 
@@ -107,11 +106,11 @@ public class Item extends Concrete {
 	}
 
 	public int getWidth() {
-		return spriteSize[0];
+		return size[0];
 	}
 
 	public int getHeight() {
-		return spriteSize[1];
+		return size[1];
 	}
 
 	public void frameIncr() {
@@ -151,10 +150,10 @@ public class Item extends Concrete {
 	}
 
 	public boolean isTouchingEdge() {
-		if (pos.getX() - spriteSize[0] / 2 <= 0
-				|| pos.getY() - spriteSize[1] / 2 <= 0
-				|| pos.getX() + spriteSize[0] / 2 >= 0
-				|| pos.getY() + spriteSize[1] / 2 >= 0)
+		if (pos.getX() - size[0] / 2 <= 0
+				|| pos.getY() - size[1] / 2 <= 0
+				|| pos.getX() + size[0] / 2 >= engine.screenWidth
+				|| pos.getY() + size[1] / 2 >= engine.screenHeight)
 			return true;
 		return false;
 	}
