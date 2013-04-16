@@ -2,11 +2,12 @@ package edu.bouyaka.engine.interfaces;
 
 import edu.bouyaka.engine.Entity;
 import edu.bouyaka.engine.Gengine;
-import edu.bouyaka.engine.Vector;
+import edu.bouyaka.engine.abstracted.Vector;
 
 public class RegularM implements Movings {
 	Gengine engine;
 	Entity E;
+	double k = 0.01;
 
 	// Position
 	public Vector pos;
@@ -20,71 +21,71 @@ public class RegularM implements Movings {
 	}
 
 	public void moveUp(int n) {
-		if (pos.getY() - 1.0 * n * engine.tick >= objectSize[1] / 2) {
-			pos.setY(pos.getY() - 1.0 * n * engine.tick);
+		if (pos.getRY() - 1.0 * n * engine.tick >= objectSize[1] / 2) {
+			pos.setY(pos.getY() - 1.0 * k * n * engine.tick);
 
 		}
 	}
 
 	public void moveDown(int n) {
-		if (pos.getY() + 1.0 * n * engine.tick < engine.displayHeight
+		if (pos.getRY() + 1.0 * n * engine.tick < engine.displayHeight
 				- objectSize[1] / 2) {
-			pos.setY(pos.getY() + 1.0 * n * engine.tick);
+			pos.setY(pos.getY() + 1.0 * k * n * engine.tick);
 
 		}
 	}
 
 	public void moveLeft(int n) {
-		if (pos.getX() - 1.0 * n * engine.tick >= objectSize[0] / 2) {
-			pos.setX(pos.getX() - 1.0 * n * engine.tick);
+		if (pos.getRX() - 1.0 * n * engine.tick >= objectSize[0] / 2) {
+			pos.setX(pos.getX() - 1.0 * k * n * engine.tick);
 
 		}
 	}
 
 	public void moveRight(int n) {
-		if (pos.getX() + 1.0 * n * engine.tick < engine.displayWidth
+		if (pos.getRX() + 1.0 * n * engine.tick < engine.displayWidth
 				- objectSize[0] / 2) {
-			pos.setX(pos.getX() + 1.0 * n * engine.tick);
+			pos.setX(pos.getX() + 1.0 * k * n * engine.tick);
 
 		}
 	}
 
 	public void moveUpRight(int n) {
-		if (pos.getX() + 1.0 * n * engine.tick < engine.displayWidth
+		if (pos.getRX() + 1.0 * n * engine.tick < engine.displayWidth
 				- objectSize[0] / 2
-				&& pos.getY() - 1.0 * n * engine.tick >= objectSize[1] / 2) {
-			pos.setX(pos.getX() + 0.707106781 * n * engine.tick);
-			pos.setY(pos.getY() - 0.707106781 * n * engine.tick);
+				&& pos.getRY() - 1.0 * n * engine.tick >= objectSize[1] / 2) {
+			pos.setX(pos.getX() + 0.707106781 * k * n * engine.tick);
+			pos.setY(pos.getY() - 0.707106781 * k * n * engine.tick);
 
 		}
 	}
 
 	public void moveDownRight(int n) {
-		if (pos.getX() + 1.0 * n * engine.tick < engine.displayWidth
+		if (pos.getRX() + 1.0 * n * engine.tick < engine.displayWidth
 				- objectSize[0] / 2
-				&& pos.getY() + 1.0 * n * engine.tick < engine.displayHeight
+				&& pos.getRY() + 1.0 * n * engine.tick < engine.displayHeight
 						- objectSize[1] / 2) {
-			pos.setX(pos.getX() + 0.707106781 * n * engine.tick);
-			pos.setY(pos.getY() + 0.707106781 * n * engine.tick);
+			pos.setX(pos.getX() + 0.707106781 * k * n * engine.tick);
+			pos.setY(pos.getY() + 0.707106781 * k * n * engine.tick);
 
 		}
 	}
 
 	public void moveUpLeft(int n) {
-		if (pos.getX() - 1.0 * n * engine.tick >= objectSize[0] / 2
-				&& pos.getY() - 1.0 * n * engine.tick >= objectSize[1] / 2) {
-			pos.setX(pos.getX() - 0.707106781 * n * engine.tick);
-			pos.setY(pos.getY() - 0.707106781 * n * engine.tick);
+		if (pos.getRX() - 1.0 * n * engine.tick >= objectSize[0] / 2
+				&& pos.getRY() - 1.0 * n * engine.tick >= objectSize[1] / 2) {
+			pos.setX(pos.getX() - 0.707106781 * k * n * engine.tick);
+			pos.setY(pos.getY() - 0.707106781 * k * n * engine.tick);
 
 		}
 	}
 
 	public void moveDownLeft(int n) {
-		if (pos.getX() - 1.0 * n * engine.tick >= objectSize[0] / 2
-				&& pos.getY() + 1.0 * n * engine.tick < engine.displayHeight
+		if (pos.getRX() - 1.0 * n * engine.tick >= objectSize[0] / 2
+				&& pos.getRY() + 1.0 * n * engine.tick < engine.displayHeight
 						- objectSize[1] / 2) {
-			pos.setX(pos.getX() - 0.707106781 * n * engine.tick);
-			pos.setY(pos.getY() + 0.707106781 * n * engine.tick);
+			pos.setX(pos.getX() - 0.707106781 * k * n * engine.tick);
+			pos.setY(pos.getY() + 0.707106781 * k * n * engine.tick);
 
 		}
 	}

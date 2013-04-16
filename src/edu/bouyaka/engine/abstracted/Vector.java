@@ -1,4 +1,6 @@
-package edu.bouyaka.engine;
+package edu.bouyaka.engine.abstracted;
+
+import edu.bouyaka.engine.Abstract;
 
 public class Vector extends Abstract {
 	Vector attachedVector;

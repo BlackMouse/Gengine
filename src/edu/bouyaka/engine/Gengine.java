@@ -8,6 +8,14 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
+import edu.bouyaka.engine.abstracted.Interface;
+import edu.bouyaka.engine.abstracted.Sprite;
+import edu.bouyaka.engine.abstracted.Vector;
+import edu.bouyaka.engine.concreted.Button;
+import edu.bouyaka.engine.concreted.Item;
+import edu.bouyaka.engine.concreted.Npc;
+import edu.bouyaka.engine.concreted.Player;
+
 public class Gengine {
 
 	public int displayWidth = 1280, displayHeight = 720, screenWidth,
@@ -29,6 +37,7 @@ public class Gengine {
 	public Vector vRef = new Vector();
 	public Mouse cursor = new Mouse();
 	public Keyboard keyboard = new Keyboard();
+	public char lastInput;
 
 	// Entity[0]=Players array
 	// Entity[1]=Npc array

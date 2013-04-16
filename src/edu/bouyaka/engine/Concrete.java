@@ -1,5 +1,7 @@
 package edu.bouyaka.engine;
 
+import edu.bouyaka.engine.abstracted.Vector;
+
 public class Concrete extends Entity {
 	protected Vector pos = new Vector(), spd = new Vector(),
 			acc = new Vector();
@@ -119,19 +121,15 @@ public class Concrete extends Entity {
 		}
 	}
 
-	private void leftPress(double x, double y) {
-		setRPos(x, y);
+	protected void leftPress(double x, double y) {
 	}
 
-	private void middlePress(double x, double y) {
-		// setRPos(x, y);
+	protected void middlePress(double x, double y) {
 	}
 
-	private void rightPress(double x, double y) {
-		// setRPos(x, y);
+	protected void rightPress(double x, double y) {
 	}
 
-	private void hoover(double x, double y) {
-		// setRPos(x, y);
+	protected void hoover(double x, double y) {
 	}
 }

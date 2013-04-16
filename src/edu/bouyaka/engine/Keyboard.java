@@ -15,12 +15,14 @@ public class Keyboard extends Entity implements KeyListener {
 
 	// Action lors du relachement
 	public void keyReleased(KeyEvent key) {
+		if (key.getKeyCode() != 524)
 		keyMap[key.getKeyCode()] = false;
 	}
 
 	// Action lors de l'appui+relachement
 	public void keyTyped(KeyEvent key) {
-
+		if (key.getKeyCode() != 524)
+		engine.lastInput = key.getKeyChar();
 	}
 
 	public boolean keyP(int id) {

@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import edu.bouyaka.engine.abstracted.Vector;
+
 public class Mouse extends Entity implements MouseListener, MouseMotionListener {
 	private Vector pos = new Vector(), lastP = new Vector(),
 			lastR = new Vector();

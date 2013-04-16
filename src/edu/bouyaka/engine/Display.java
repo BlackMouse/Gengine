@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import edu.bouyaka.engine.abstracted.Sprite;
+
 @SuppressWarnings("serial")
 public class Display extends JPanel {
 	protected int width, height;
