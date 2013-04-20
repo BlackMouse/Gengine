@@ -36,11 +36,11 @@ public class Interface extends Abstract {
 	}
 
 	// Actualisation de l'affichage
-	public void update() {
-		for (int id = 0; id <= maxId; id++) {
+	public void show() {
+		/*for (int id = 0; id <= maxId; id++) {
 			if (buttonArray[id].isVisible())
 				buttonArray[id].show();
-		}
+		}*/
 		engine.display.drawImage(interfaceContent, 0, 0);
 		clean();
 	}

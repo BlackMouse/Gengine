@@ -15,7 +15,7 @@ public class UpdateEntity extends Thread {
 	public void run() {
 		processed = false;
 		//Concrete update
-		if (engine.state != "paused") {
+		if (engine.state != "Pause") {
 			for (int type = 0; type <=2; type++) {
 				for (int entity = 0; entity < engine.entityArray[type].length; entity++) {
 					if (engine.entityArray[type][entity] != null)

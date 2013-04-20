@@ -33,6 +33,7 @@ public class Gengine {
 	public File resDir;
 	private UpdateScreen refreshLoop;
 	private UpdateEntity updateEntityLoop;
+	public HeightMapManager heightManager = new HeightMapManager(50, 10);
 	private Timer refreshTimer;
 	public Vector vRef = new Vector();
 	public Mouse cursor = new Mouse();
@@ -156,43 +157,43 @@ public class Gengine {
 
 	public void addPlayer(int id) {
 		if (id >= entityArray[0].length)
-			setPlayerAmount(entityArray[0].length + 1);
-		entityArray[0][id] = null;
+			setPlayerAmount(id + 1);
+		heightManager.setHeight(10, "Player", id);
 		entityArray[0][id] = new Player();
 	}
 
 	public void addNpc(int id) {
 		if (id >= entityArray[1].length)
-			setNpcAmount(entityArray[1].length + 1);
-		entityArray[1][id] = null;
+			setNpcAmount(id + 1);
+		heightManager.setHeight(10, "Npc", id);
 		entityArray[1][id] = new Npc();
 	}
 
 	public void addItem(int id) {
 		if (id >= entityArray[2].length)
-			setItemAmount(entityArray[2].length + 1);
-		entityArray[2][id] = null;
+			setItemAmount(id + 1);
+		heightManager.setHeight(10, "Item", id);
 		entityArray[2][id] = new Item();
 	}
 
 	public void addInterface(int id) {
 		if (id >= entityArray[3].length)
-			setInterfaceAmount(entityArray[3].length + 1);
-		entityArray[3][id] = null;
+			setInterfaceAmount(id + 1);
+		heightManager.setHeight(10, "Interface", id);
 		entityArray[3][id] = new Interface();
 	}
 
 	public void addButton(int id) {
 		if (id >= entityArray[4].length)
-			setButtonAmount(entityArray[4].length + 1);
-		entityArray[4][id] = null;
+			setButtonAmount(id + 1);
+		heightManager.setHeight(10, "Button", id);
 		entityArray[4][id] = new Button();
 	}
 
 	public void addSprite(int id, BufferedImage image, int nFrame, int frameRate) {
 		if (id >= entityArray[5].length)
-			setSpriteAmount(entityArray[5].length + 5);
-		entityArray[5][id] = null;
+			setSpriteAmount(id + 1);
+		heightManager.setHeight(10, "Sprite", id);
 		entityArray[5][id] = new Sprite(image, nFrame, frameRate);
 	}
 

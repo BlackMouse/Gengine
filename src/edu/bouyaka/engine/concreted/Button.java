@@ -16,48 +16,42 @@ public class Button extends Concrete {
 	protected String text;
 	@SuppressWarnings("unused")
 	private int textSize;
-	@SuppressWarnings("unused")
-	private Interface fatherInterface;
+	protected Interface fatherInterface;
 
 	public Button() {
 		setColor(new Color(0, 0, 0, 255));
 		setTextColor(new Color(255, 255, 255, 255));
 		setTextSize(engine.displayHeight / 60);
+		type = "Button";
 	}
 
 	public void setSize(int rW, int rH) {
 		this.size[0] = rW;
 		this.size[1] = rH;
-		engine.interfaceEdited = true;
 	}
 
 	public void setColor(Color buttonColor) {
 		this.buttonColor = buttonColor;
-		engine.interfaceEdited = true;
 
 	}
 
 	public void setTextColor(Color textColor) {
 		this.textColor = textColor;
-		engine.interfaceEdited = true;
 
 	}
 
 	public void setTextSize(int textSize) {
 		this.textSize = textSize;
 		f = new Font("Courier New", Font.BOLD, textSize);
-		engine.interfaceEdited = true;
 
 	}
 
 	public void addText(String text) {
 		this.text = this.text + text;
-		engine.interfaceEdited = true;
 	}
 
 	public void replaceText(String text) {
 		this.text = String.valueOf(text);
-		engine.interfaceEdited = true;
 	}
 
 	public void show() {
@@ -71,6 +65,7 @@ public class Button extends Concrete {
 					(int) pos.getRY() + size[1] / 4);
 		} catch (Exception e) {
 		}
+
 	}
 
 	public void setG(Graphics g) {
