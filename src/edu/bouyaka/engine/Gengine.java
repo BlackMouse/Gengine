@@ -38,6 +38,7 @@ public class Gengine {
 	public Mouse cursor = new Mouse();
 	public Keyboard keyboard = new Keyboard();
 	public char lastInput;
+	public String state;
 
 	// Entity[0]=Players array
 	// Entity[1]=Npc array

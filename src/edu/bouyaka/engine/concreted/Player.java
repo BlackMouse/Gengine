@@ -143,19 +143,22 @@ public class Player extends Concrete {
 
 	public void collideTo(Concrete E) {
 
-		if (this.getY() - E.getY() > 0 && this.getX() - E.getX() < 0) {
+		if (pos.getY() - E.pos.getY() > 0 && pos.getX() - E.pos.getX() < 0) {
 			this.moveLeft(1);
 			this.moveDown(1);
 
-		} else if (this.getY() - E.getY() > 0 && this.getX() - E.getX() > 0) {
+		} else if (pos.getY() - E.pos.getY() > 0
+				&& pos.getX() - E.pos.getX() > 0) {
 			this.moveRight(1);
 			this.moveDown(1);
 
-		} else if (this.getY() - E.getY() < 0 && this.getX() - E.getX() < 0) {
+		} else if (pos.getY() - E.pos.getY() < 0
+				&& pos.getX() - E.pos.getX() < 0) {
 			this.moveLeft(1);
 			this.moveUp(1);
 
-		} else if (this.getY() - E.getY() < 0 && this.getX() - E.getX() > 0) {
+		} else if (pos.getY() - E.pos.getY() < 0
+				&& pos.getX() - E.pos.getX() > 0) {
 			this.moveRight(1);
 			this.moveUp(1);
 

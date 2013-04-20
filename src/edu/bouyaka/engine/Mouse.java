@@ -4,14 +4,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import edu.bouyaka.engine.abstracted.Sprite;
 import edu.bouyaka.engine.abstracted.Vector;
 
 public class Mouse extends Entity implements MouseListener, MouseMotionListener {
 	private Vector pos = new Vector(), lastP = new Vector(),
-			lastR = new Vector();
-	private boolean[] state = new boolean[5];
+			lastR = new Vector(), lastC = new Vector();
+	private boolean[] pButton = new boolean[5], cButton = new boolean[5];
+	private boolean clicked;
+	private Sprite defaultSprite, clickSprite;
 
 	public void mouseClicked(MouseEvent evt) {
+		lastC.setR(evt.getX(), evt.getY());
+		cButton[evt.getButton()] = true;
+		clicked = true;
+
 	}
 
 	public void mouseEntered(MouseEvent evt) {
@@ -22,14 +29,16 @@ public class Mouse extends Entity implements MouseListener, MouseMotionListener 
 
 	public void mousePressed(MouseEvent evt) {
 		lastR.setR(evt.getX(), evt.getY());
-		engine.display.setCursor(engine.Sprite(7));
-		state[evt.getButton()] = true;
+		if (clickSprite != null)
+			engine.display.setCursor(clickSprite);
+		pButton[evt.getButton()] = true;
 	}
 
 	public void mouseReleased(MouseEvent evt) {
 		lastR.setR(evt.getX(), evt.getY());
-		engine.display.setCursor(engine.Sprite(6));
-		state[evt.getButton()] = false;
+		if (defaultSprite != null)
+			engine.display.setCursor(defaultSprite);
+		pButton[evt.getButton()] = false;
 	}
 
 	public void mouseDragged(MouseEvent evt) {
@@ -39,6 +48,16 @@ public class Mouse extends Entity implements MouseListener, MouseMotionListener 
 	public void mouseMoved(MouseEvent evt) {
 		pos.setR(evt.getX(), evt.getY());
 
+	}
+
+	public void setCursorSprite(Sprite s) {
+		defaultSprite = s;
+		if (engine.display != null)
+			engine.display.setCursor(defaultSprite);
+	}
+
+	public void setClickSprite(Sprite s) {
+		clickSprite = s;
 	}
 
 	public Vector getPos() {
@@ -53,8 +72,24 @@ public class Mouse extends Entity implements MouseListener, MouseMotionListener 
 		return lastR;
 	}
 
-	public boolean getState(int id) {
-		return state[id];
+	public boolean getPButton(int id) {
+		return pButton[id];
+	}
+
+	public Vector getLastC() {
+		return lastC;
+	}
+
+	public boolean getCButton(int id) {
+		return cButton[id];
+	}
+
+	public boolean isClicked() {
+		return clicked;
+	}
+
+	public void resetClick() {
+		clicked = false;
 	}
 
 }

@@ -30,8 +30,7 @@ public class Item extends Concrete {
 				(int) (pos.getRY() - size[1] / 2));
 		engine.display.setColor(Color.green);
 		engine.display.drawRect((int) (pos.getRX() - size[0] / 2),
-				(int) (pos.getRY() - size[1] / 2), size[0],
-				size[1]);
+				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
 	}
 
 	// Déplacement de l'entitée
@@ -75,8 +74,6 @@ public class Item extends Concrete {
 	public void move(int direction) {
 		movings.move(direction);
 	}
-
-	
 
 	public void setSpriteId(int spriteId) {
 		spriteDisplayer.setSpriteId(spriteId);
@@ -126,35 +123,36 @@ public class Item extends Concrete {
 
 	}
 
-
 	public void enableCollision(boolean flag) {
 		collisionEnabled = flag;
 	}
 
 	public void Collide(Concrete E) {
 
-		if (getY() - E.getY() > 0 && getX() - E.getX() < 0) {
-			moveLeft(2);
-			moveDown(2);
+		if (pos.getY() - E.pos.getY() > 0 && pos.getX() - E.pos.getX() < 0) {
+			this.moveLeft(1);
+			this.moveDown(1);
 
-		} else if (getY() - E.getY() > 0 && getX() - E.getX() > 0) {
-			moveRight(2);
-			moveDown(2);
+		} else if (pos.getY() - E.pos.getY() > 0
+				&& pos.getX() - E.pos.getX() > 0) {
+			this.moveRight(1);
+			this.moveDown(1);
 
-		} else if (getY() - E.getY() < 0 && getX() - E.getX() < 0) {
-			moveLeft(2);
-			moveUp(2);
+		} else if (pos.getY() - E.pos.getY() < 0
+				&& pos.getX() - E.pos.getX() < 0) {
+			this.moveLeft(1);
+			this.moveUp(1);
 
-		} else if (getY() - E.getY() < 0 && getX() - E.getX() > 0) {
-			moveRight(2);
-			moveUp(2);
+		} else if (pos.getY() - E.pos.getY() < 0
+				&& pos.getX() - E.pos.getX() > 0) {
+			this.moveRight(1);
+			this.moveUp(1);
 
 		}
 	}
 
 	public boolean isTouchingEdge() {
-		if (pos.getX() - size[0] / 2 <= 0
-				|| pos.getY() - size[1] / 2 <= 0
+		if (pos.getX() - size[0] / 2 <= 0 || pos.getY() - size[1] / 2 <= 0
 				|| pos.getX() + size[0] / 2 >= engine.screenWidth
 				|| pos.getY() + size[1] / 2 >= engine.screenHeight)
 			return true;

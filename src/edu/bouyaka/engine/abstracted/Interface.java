@@ -25,6 +25,7 @@ public class Interface extends Abstract {
 	public void addButton(Button button, int id) {
 		buttonArray[id] = button;
 		buttonArray[id].setG(drawInterface);
+		buttonArray[id].setInterface(this);
 		if (id > maxId)
 			maxId = id;
 	}
@@ -37,7 +38,7 @@ public class Interface extends Abstract {
 	// Actualisation de l'affichage
 	public void update() {
 		for (int id = 0; id <= maxId; id++) {
-			if (buttonArray[id].enabled)
+			if (buttonArray[id].isVisible())
 				buttonArray[id].show();
 		}
 		engine.display.drawImage(interfaceContent, 0, 0);
@@ -62,4 +63,19 @@ public class Interface extends Abstract {
 		clean();
 
 	}
+
+	public void enable(boolean state) {
+		for (int id = 0; id <= maxId; id++) {
+			buttonArray[id].enable(state);
+		}
+		enabled = state;
+	}
+
+	public void setVisible(boolean state) {
+		for (int id = 0; id <= maxId; id++) {
+			buttonArray[id].setVisible(state);
+		}
+		visible = state;
+	}
+
 }

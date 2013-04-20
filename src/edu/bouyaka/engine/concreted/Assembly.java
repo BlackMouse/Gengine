@@ -12,13 +12,6 @@ public class Assembly extends Item {
 
 	}
 
-	public void show() {
-		for (int id = 0; id < items.length; id++) {
-			items[id].setPos((int) pos.getX() + itemsPos[id].getX(),
-					(int) pos.getY() + itemsPos[id].getY());
 
-			items[id].show();
-		}
-	}
 
 }

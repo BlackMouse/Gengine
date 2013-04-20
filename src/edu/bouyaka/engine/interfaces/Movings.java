@@ -26,8 +26,6 @@ public interface Movings {
 
 	public void moveDownLeft(int n);
 
-	public void setPos(int x, int y);
-
 	public void move();
 
 	public void move(int direction);

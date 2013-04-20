@@ -8,7 +8,7 @@ public class KeyControlledM implements Movings {
 
 	Gengine engine;
 	Entity E;
-	double k = 0.01;
+	double k = 0.1;
 
 	private int upKey, downKey, leftKey, rightKey;
 
@@ -91,24 +91,6 @@ public class KeyControlledM implements Movings {
 			pos.setY(pos.getY() + 0.707106781 * k * n * engine.tick);
 
 		}
-	}
-
-	public double getX() {
-		return pos.getX();
-	}
-
-	public double getY() {
-		return pos.getY();
-	}
-
-	// D�finition de la position de l'objet
-	public void setPos(int x, int y) {
-		pos.setX(x);
-		pos.setY(y);
-	}
-
-	public Vector getPos() {
-		return pos;
 	}
 
 	public void move() {

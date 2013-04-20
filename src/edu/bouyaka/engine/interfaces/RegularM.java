@@ -7,7 +7,7 @@ import edu.bouyaka.engine.abstracted.Vector;
 public class RegularM implements Movings {
 	Gengine engine;
 	Entity E;
-	double k = 0.01;
+	double k = 0.1;
 
 	// Position
 	public Vector pos;
@@ -88,23 +88,6 @@ public class RegularM implements Movings {
 			pos.setY(pos.getY() + 0.707106781 * k * n * engine.tick);
 
 		}
-	}
-
-	public double getX() {
-		return pos.getX();
-	}
-
-	public double getY() {
-		return pos.getY();
-	}
-
-	// D�finition de la position de l'objet
-	public void setPos(int x, int y) {
-		pos.set(x, y);
-	}
-
-	public Vector getPos() {
-		return pos;
 	}
 
 	public void move() {

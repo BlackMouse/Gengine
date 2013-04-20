@@ -10,7 +10,7 @@ public class TextBox extends Button {
 	public TextBox() {
 		super();
 		typingDelay = new Timer();
-		typingDelay.setDelay(10000);
+		typingDelay.setDelay((long) 1E6);
 		typingDelay.start();
 
 	}
@@ -19,9 +19,9 @@ public class TextBox extends Button {
 		typingDelay.setDelay(delay);
 	}
 
-	protected void leftPress(double x, double y) {
+	protected void leftClick(double x, double y) {
 		typingEnabled = true;
-		System.out.println("click on console");
+		engine.lastInput = '\0';
 	}
 
 	protected void middlePress(double x, double y) {
@@ -38,7 +38,7 @@ public class TextBox extends Button {
 	}
 
 	public void update() {
-		if (typingDelay.ended()) {
+		if (typingDelay.ended()&&typingEnabled) {
 			typingDelay.start();
 			char ch = engine.lastInput;
 

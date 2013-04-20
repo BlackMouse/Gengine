@@ -37,7 +37,7 @@ public class UpdateScreen extends Thread {
 			for (int type = 0; type < engine.entityArray.length; type++) {
 				for (int entity = 0; entity < engine.entityArray[type].length; entity++) {
 					if (engine.entityArray[type][entity] != null)
-						if (engine.entityArray[type][entity].enabled)
+						if (engine.entityArray[type][entity].isVisible())
 							engine.entityArray[type][entity].show();
 				}
 			}

@@ -3,8 +3,9 @@ package edu.bouyaka.engine;
 import edu.bouyaka.engine.abstracted.Vector;
 
 public class Concrete extends Entity {
-	protected Vector pos = new Vector(), spd = new Vector(),
-			acc = new Vector();
+	public Vector pos = new Vector();
+	public Vector spd = new Vector();
+	public Vector acc = new Vector();
 	protected int[] size = new int[2];
 
 	public boolean collisionEnabled = true, fixed = false;
@@ -39,48 +40,20 @@ public class Concrete extends Entity {
 		return false;
 	}
 
-	public Vector getPos() {
-		return pos;
-	}
-
-	public double getX() {
-		return pos.getX();
-	}
-
-	public double getY() {
-		return pos.getY();
-	}
-
-	public double getRX() {
-		return pos.getRX();
-	}
-
-	public double getRY() {
-		return pos.getRY();
-	}
-
-	public void setX(double X) {
-		pos.setX(X);
-	}
-
-	public void setY(double Y) {
-		pos.setY(Y);
-	}
-
-	public void setRX(double X) {
-		pos.setRX(X);
-	}
-
-	public void setRY(double Y) {
-		pos.setRY(Y);
-	}
-
 	public int getWidth() {
 		return size[0];
 	}
 
 	public int getHeight() {
 		return size[1];
+	}
+
+	public void setWidth(int x) {
+		size[0] = x;
+	}
+
+	public void setHeight(int y) {
+		size[1] = y;
 	}
 
 	/*
@@ -90,46 +63,58 @@ public class Concrete extends Entity {
 	 * 
 	 * @param y Baila bamba
 	 */
-	public void setPos(double x, double y) {
-		pos.set(x, y);
-
-	}
-
-	public void setRPos(double x, double y) {
-		pos.setR(x, y);
-
-	}
 
 	public void collideTo(Concrete E) {
 	}
 
 	public void checkMouse() {
-		double mX = engine.cursor.getPos().getRX(), mY = engine.cursor.getPos()
-				.getRY();
+		int mX = (int) engine.cursor.getPos().getRX(), mY = (int) engine.cursor
+				.getPos().getRY();
 
-		if (Math.abs(mX - getRX()) < size[0] / 2
-				&& Math.abs(mY - getRY()) < size[1] / 2) {
-			if (engine.cursor.getState(1))
-				leftPress(mX, mY);
+		if (Math.abs(mX - pos.getRX()) < size[0] / 2
+				&& Math.abs(mY - pos.getRY()) < size[1] / 2) {
+			if (engine.cursor.isClicked()) {
+				System.out.println("click");
+				if (engine.cursor.getCButton(1))
+					leftClick(mX, mY);
 
-			if (engine.cursor.getState(3))
-				rightPress(mX, mY);
+				if (engine.cursor.getCButton(3))
+					rightClick(mX, mY);
 
-			if (engine.cursor.getState(2))
-				middlePress(mX, mY);
+				if (engine.cursor.getCButton(2))
+					middleClick(mX, mY);
+			} else {
+				if (engine.cursor.getPButton(1))
+					leftPress(mX, mY);
+
+				if (engine.cursor.getPButton(3))
+					rightPress(mX, mY);
+
+				if (engine.cursor.getPButton(2))
+					middlePress(mX, mY);
+			}
 			hoover(mX, mY);
 		}
 	}
 
-	protected void leftPress(double x, double y) {
+	protected void leftPress(int x, int y) {
 	}
 
-	protected void middlePress(double x, double y) {
+	protected void middlePress(int x, int y) {
 	}
 
-	protected void rightPress(double x, double y) {
+	protected void rightPress(int x, int y) {
 	}
 
-	protected void hoover(double x, double y) {
+	protected void leftClick(int x, int y) {
+	}
+
+	protected void middleClick(int x, int y) {
+	}
+
+	protected void rightClick(int x, int y) {
+	}
+
+	protected void hoover(int x, int y) {
 	}
 }

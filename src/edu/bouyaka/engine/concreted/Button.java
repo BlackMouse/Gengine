@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import edu.bouyaka.engine.Concrete;
+import edu.bouyaka.engine.abstracted.Interface;
 
 public class Button extends Concrete {
 
@@ -15,6 +16,8 @@ public class Button extends Concrete {
 	protected String text;
 	@SuppressWarnings("unused")
 	private int textSize;
+	@SuppressWarnings("unused")
+	private Interface fatherInterface;
 
 	public Button() {
 		setColor(new Color(0, 0, 0, 255));
@@ -58,7 +61,6 @@ public class Button extends Concrete {
 	}
 
 	public void show() {
-
 		g.setColor(buttonColor);
 		g.fillRect((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
@@ -73,6 +75,10 @@ public class Button extends Concrete {
 
 	public void setG(Graphics g) {
 		this.g = g;
+	}
+
+	public void setInterface(Interface E) {
+		fatherInterface = E;
 	}
 
 }

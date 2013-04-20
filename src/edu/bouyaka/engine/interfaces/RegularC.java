@@ -13,8 +13,9 @@ public class RegularC implements Collision {
 		Concrete B = (Concrete) b;
 		if (A.collisionEnabled && B.collisionEnabled)
 
-			if (Math.abs(A.getX() - B.getX()) < (A.getWidth() + B.getWidth()) / 2
-					&& Math.abs(A.getY() - B.getY()) < (A.getHeight() + B
+			if (Math.abs(A.pos.getRX() - B.pos.getRX()) < (A.getWidth() + B
+					.getWidth()) / 2
+					&& Math.abs(A.pos.getRY() - B.pos.getRY()) < (A.getHeight() + B
 							.getHeight()) / 2) {
 				A.collideTo(B);
 				B.collideTo(A);
