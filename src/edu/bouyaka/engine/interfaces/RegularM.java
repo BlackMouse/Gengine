@@ -7,7 +7,7 @@ import edu.bouyaka.engine.abstracted.Vector;
 public class RegularM implements Movings {
 	Gengine engine;
 	Entity E;
-	double k = 0.1;
+	double k = 0.05;
 
 	// Position
 	public Vector pos;

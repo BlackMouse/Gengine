@@ -27,6 +27,10 @@ public class Vector extends Abstract {
 		return y;
 	}
 
+	public double getDistanceTo(Vector v) {
+		return Math.sqrt(Math.pow(v.getX()-getX(),2)+Math.pow(v.getY()-getY(),2));
+	}
+
 	public double getRX() {
 		return x * engine.vRef.getX();
 	}

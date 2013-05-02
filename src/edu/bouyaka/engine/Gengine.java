@@ -26,7 +26,7 @@ public class Gengine {
 	public int blurAmount, nHTiles, nVTiles;
 	public double tick = 1, fps = 60, tickTime;
 	public boolean[][] entityEnabled;
-	public boolean vSync = true, fullScreen = false, interfaceEdited;
+	public boolean vSync = true, fullScreen = false, interfaceEdited, devMode;
 	public BufferedImage mainBackGround, mainContent, mainInterface;
 	public Display display;
 	public JFrame window;
@@ -72,7 +72,7 @@ public class Gengine {
 		screenWidth = gd.getDisplayMode().getWidth();
 		screenHeight = gd.getDisplayMode().getHeight();
 
-		refreshLoop = new UpdateScreen("refreshLoop", this);
+		refreshLoop = new UpdateScreen(this);
 		updateEntityLoop = new UpdateEntity(this);
 
 	}
@@ -97,13 +97,15 @@ public class Gengine {
 	}
 
 	public void update() {
-		if (refreshLoop.isProcessed() && updateEntityLoop.isProcessed()) {
-			refreshTimer.newTimeKey();
+		refreshTimer.newTimeKey();
+		if (updateEntityLoop.isProcessed())
 			updateEntityLoop.run();
+
+		if (refreshLoop.isProcessed())
 			refreshLoop.run();
-			tick = 15 * refreshTimer.delta() / (1E8);
-			tickTime = tickTime + tick;
-		}
+		double delta = refreshTimer.delta();
+		tick = 15 * delta / (1E8);
+		tickTime = tickTime + tick;
 
 	}
 
@@ -158,42 +160,36 @@ public class Gengine {
 	public void addPlayer(int id) {
 		if (id >= entityArray[0].length)
 			setPlayerAmount(id + 1);
-		heightManager.setHeight(10, "Player", id);
 		entityArray[0][id] = new Player();
 	}
 
 	public void addNpc(int id) {
 		if (id >= entityArray[1].length)
 			setNpcAmount(id + 1);
-		heightManager.setHeight(10, "Npc", id);
 		entityArray[1][id] = new Npc();
 	}
 
 	public void addItem(int id) {
 		if (id >= entityArray[2].length)
 			setItemAmount(id + 1);
-		heightManager.setHeight(10, "Item", id);
 		entityArray[2][id] = new Item();
 	}
 
 	public void addInterface(int id) {
 		if (id >= entityArray[3].length)
 			setInterfaceAmount(id + 1);
-		heightManager.setHeight(10, "Interface", id);
 		entityArray[3][id] = new Interface();
 	}
 
 	public void addButton(int id) {
 		if (id >= entityArray[4].length)
 			setButtonAmount(id + 1);
-		heightManager.setHeight(10, "Button", id);
 		entityArray[4][id] = new Button();
 	}
 
 	public void addSprite(int id, BufferedImage image, int nFrame, int frameRate) {
 		if (id >= entityArray[5].length)
 			setSpriteAmount(id + 1);
-		heightManager.setHeight(10, "Sprite", id);
 		entityArray[5][id] = new Sprite(image, nFrame, frameRate);
 	}
 
@@ -205,7 +201,6 @@ public class Gengine {
 		display.requestFocus();
 		display.setBlankColor(new Color(255, 255, 255, (int) (255 / (Math.pow(
 				2, blurAmount)))));
-		display.blank();
 	}
 
 	public void setPlayerAmount(int amount) {

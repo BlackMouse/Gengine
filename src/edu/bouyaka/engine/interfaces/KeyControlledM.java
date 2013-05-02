@@ -8,7 +8,7 @@ public class KeyControlledM implements Movings {
 
 	Gengine engine;
 	Entity E;
-	double k = 0.1;
+	double k = 0.05;
 
 	private int upKey, downKey, leftKey, rightKey;
 

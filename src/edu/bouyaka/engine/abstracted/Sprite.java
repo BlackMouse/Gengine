@@ -7,17 +7,18 @@ import java.awt.image.BufferedImage;
 import edu.bouyaka.engine.Abstract;
 
 /*
- * Définition des principales propriétés de la fenêtre
+ * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
  */
-public class Sprite extends Abstract{
+public class Sprite extends Abstract {
 	private BufferedImage image;
-	private int nFrame, height, width, frameWidth, frameHeight, frameRate;
+	private int nFrame, frameRate, height, width, frameWidth, frameHeight;
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 	public Sprite(BufferedImage image, int nFrame, int frameRate) {
-		this.image = image;
+		this.image = image.getSubimage(0, 0, image.getWidth(),
+				image.getHeight());
 		this.nFrame = nFrame;
 		this.width = image.getWidth();
 		this.height = this.frameHeight = image.getHeight();
@@ -26,38 +27,38 @@ public class Sprite extends Abstract{
 	}
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 	public int getWidth() {
 		return frameWidth;
 	}
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 	public int getHeight() {
 		return frameHeight;
 	}
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 	public int getNFrame() {
 		return nFrame;
 	}
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 	public int getFrameRate() {
 		return frameRate;
 	}
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 
-	public BufferedImage get(int index) {
+	public BufferedImage getFrame(int index) {
 		if (index * frameWidth < width && index != -1)
 			return image.getSubimage(index * frameWidth, 0, frameWidth,
 					frameHeight);
@@ -66,21 +67,35 @@ public class Sprite extends Abstract{
 	}
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 	public void scale(double pourcentage) {
+		int newWidth = (int) (width * pourcentage / 100);
+		int newHeight = (int) (height * pourcentage / 100);
+		BufferedImage tmp = new BufferedImage(newWidth, newHeight,
+				BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = tmp.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, image.getWidth(),
+				image.getHeight(), null);
+		g.dispose();
+		image = tmp;
+		this.width = newWidth;
+		this.height = this.frameHeight = newHeight;
+		this.frameWidth = width / nFrame;
 	}
 
 	/*
-	 * Définition des principales propriétés de la fenêtre
+	 * Dï¿½finition des principales propriï¿½tï¿½s de la fenï¿½tre
 	 */
 	public void scale(int newWidth, int newHeight, String type) {
 		if (type == "proportionnal") {
 			if (newWidth * (height / width) >= newHeight)
-				newWidth = nFrame*width * newHeight / height;
+				newWidth = nFrame * width * newHeight / height;
 			else {
-				newHeight = height*nFrame* newWidth / width;
-				newWidth = nFrame*newWidth;
+				newHeight = height * nFrame * newWidth / width;
+				newWidth = nFrame * newWidth;
 			}
 
 			BufferedImage tmp = new BufferedImage(newWidth, newHeight,
@@ -89,11 +104,11 @@ public class Sprite extends Abstract{
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 					RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 			g.drawImage(image, 0, 0, newWidth, newHeight, 0, 0,
-					image.getWidth(), height, null);
+					image.getWidth(), image.getHeight(), null);
 			g.dispose();
 			image = tmp;
 		} else {
-			newWidth = nFrame*newWidth;
+			newWidth = nFrame * newWidth;
 			BufferedImage tmp = new BufferedImage(newWidth, newHeight,
 					BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = tmp.createGraphics();
@@ -109,5 +124,14 @@ public class Sprite extends Abstract{
 		this.width = newWidth;
 		this.height = this.frameHeight = newHeight;
 		this.frameWidth = width / nFrame;
+	}
+
+	public Sprite clone() {
+		return new Sprite(image, nFrame, frameRate);
+	}
+
+	public void finalize() {
+
+		image = null;
 	}
 }

@@ -1,13 +1,16 @@
 package edu.bouyaka.engine.concreted;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import edu.bouyaka.engine.abstracted.Interface;
+import edu.bouyaka.engine.abstracted.Sprite;
 import edu.bouyaka.engine.interfaces.RegularSD;
 import edu.bouyaka.engine.interfaces.SpriteDisplayer;
 
 public class SpriteButton extends Button {
-	private SpriteDisplayer spriteDisplayer = new RegularSD();
+	private SpriteDisplayer spriteDisplayer = new RegularSD(engine);
+	private Sprite sprite;
 
 	public SpriteButton() {
 		type = "SpriteButton";
@@ -19,23 +22,27 @@ public class SpriteButton extends Button {
 	}
 
 	public void show() {
-		engine.display.drawImage(
-				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (pos.getRX() - size[0] / 2),
+		size[0] = sprite.getWidth();
+		size[1] = sprite.getHeight();
+		spriteDisplayer.show((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2));
+		if (!engine.devMode)
+			return;
+		engine.display.setColor(Color.green);
+		engine.display.drawRect((int) (pos.getRX() - size[0] / 2),
+				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
+	}
+
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
+		spriteDisplayer.setSprite(sprite);
+		size[0] = sprite.getWidth();
+		size[1] = sprite.getHeight();
 
 	}
 
-	public void setSpriteId(int id) {
-		spriteDisplayer.setSpriteId(id);
-		size[0] = engine.Sprite(id).getWidth();
-		size[1] = engine.Sprite(id).getHeight();
-		setNFrame(engine.Sprite(id).getNFrame());
-		setSFrameRate(engine.Sprite(id).getFrameRate());
-	}
-
-	public void setFrame(int frame) {
-		spriteDisplayer.setFrame(frame);
+	public void setFrameId(int frameId) {
+		spriteDisplayer.setFrameId(frameId);
 
 	}
 
@@ -49,12 +56,12 @@ public class SpriteButton extends Button {
 
 	}
 
-	public int getSpriteId() {
-		return spriteDisplayer.getSpriteId();
+	public Sprite getSprite() {
+		return sprite;
 	}
 
-	public int getFrame() {
-		return spriteDisplayer.getFrame();
+	public int getFrameId() {
+		return spriteDisplayer.getFrameId();
 	}
 
 	public void frameIncr() {

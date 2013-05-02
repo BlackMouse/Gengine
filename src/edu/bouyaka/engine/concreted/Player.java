@@ -3,6 +3,7 @@ package edu.bouyaka.engine.concreted;
 import java.awt.Color;
 
 import edu.bouyaka.engine.Concrete;
+import edu.bouyaka.engine.abstracted.Sprite;
 import edu.bouyaka.engine.interfaces.KeyControlledM;
 import edu.bouyaka.engine.interfaces.Movings;
 import edu.bouyaka.engine.interfaces.RegularSD;
@@ -11,10 +12,11 @@ import edu.bouyaka.engine.interfaces.SpriteDisplayer;
 public class Player extends Concrete {
 	private Movings movings;
 	private SpriteDisplayer spriteDisplayer;
+	private Sprite sprite;
 
 	public Player() {
 		movings = new KeyControlledM(pos, size, engine, this);
-		spriteDisplayer = new RegularSD();
+		spriteDisplayer = new RegularSD(engine);
 		type = "Player";
 	}
 
@@ -24,17 +26,18 @@ public class Player extends Concrete {
 	}
 
 	public void show() {
-
-		engine.display.drawImage(
-				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (pos.getRX() - size[0] / 2),
+		size[0] = sprite.getWidth();
+		size[1] = sprite.getHeight();
+		spriteDisplayer.show((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2));
+		if (!engine.devMode)
+			return;
 		engine.display.setColor(Color.green);
 		engine.display.drawRect((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
 	}
 
-	// D�placement de l'entit�e
+	// Deplacement de l'entitee
 
 	public void moveUp(int n) {
 		movings.moveUp(n);
@@ -70,6 +73,7 @@ public class Player extends Concrete {
 
 	public void move() {
 		movings.move();
+		super.move();
 	}
 
 	public void setUpKey(int key) {
@@ -88,21 +92,21 @@ public class Player extends Concrete {
 		movings.setRightKey(key);
 	}
 
-	public void setSpriteId(int id) {
-		spriteDisplayer.setSpriteId(id);
-		size[0] = engine.Sprite(id).getWidth();
-		size[1] = engine.Sprite(id).getHeight();
-		setNFrame(engine.Sprite(id).getNFrame());
-		setSFrameRate(engine.Sprite(id).getFrameRate());
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite.clone();
+		spriteDisplayer.setSprite(this.sprite);
+		size[0] = sprite.getWidth();
+		size[1] = sprite.getHeight();
+
 	}
 
 	public void setFrame(int frame) {
-		spriteDisplayer.setFrame(frame);
+		spriteDisplayer.setFrameId(frame);
 
 	}
 
-	public void setNFrame(int nFrame) {
-		spriteDisplayer.setNFrame(nFrame);
+	public void setFrameId(int frameId) {
+		spriteDisplayer.setFrameId(frameId);
 
 	}
 
@@ -111,12 +115,12 @@ public class Player extends Concrete {
 
 	}
 
-	public int getSpriteId() {
-		return spriteDisplayer.getSpriteId();
+	public Sprite getSprite() {
+		return sprite;
 	}
 
-	public int getFrame() {
-		return spriteDisplayer.getFrame();
+	public int getFrameId() {
+		return spriteDisplayer.getFrameId();
 	}
 
 	public int getWidth() {
@@ -142,7 +146,6 @@ public class Player extends Concrete {
 	}
 
 	public void collideTo(Concrete E) {
-
 		if (pos.getY() - E.pos.getY() > 0 && pos.getX() - E.pos.getX() < 0) {
 			this.moveLeft(1);
 			this.moveDown(1);

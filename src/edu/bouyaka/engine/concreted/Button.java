@@ -55,12 +55,14 @@ public class Button extends Concrete {
 	}
 
 	public void show() {
-		g.setColor(buttonColor);
-		g.fillRect((int) (pos.getRX() - size[0] / 2),
-				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
-		g.setColor(textColor);
-		g.setFont(f);
 		try {
+			g.setColor(buttonColor);
+			g.fillRect((int) (pos.getRX() - size[0] / 2),
+					(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
+			g.fillRect((int) (pos.getRX() - size[0] / 2),
+					(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
+			g.setColor(textColor);
+			g.setFont(f);
 			g.drawString(text, (int) pos.getRX() - size[0] / 2 + 1,
 					(int) pos.getRY() + size[1] / 4);
 		} catch (Exception e) {

@@ -1,21 +1,35 @@
 package edu.bouyaka.engine.interfaces;
 
+import java.awt.image.BufferedImage;
+
+import edu.bouyaka.engine.Gengine;
+import edu.bouyaka.engine.abstracted.Sprite;
 
 public class RegularSD implements SpriteDisplayer {
 
-	// Identifiant du sprite représentant l'entitée
-	private int spriteId;
+	// Identifiant du sprite representant l'entitee
+	private Sprite sprite;
 
-	// Portion du sprite représentant l'entitée et portion max
-	private int frame, nFrame = 1, sFrameRate;
+	// Portion du sprite representant l'entitee et portion max
+	private int frameId, nFrame = 1, sFrameRate;
 	private long lastIncr;
+	private BufferedImage currentFrame;
+	private Gengine engine;
 
-	public void setSpriteId(int spriteId) {
-		this.spriteId = spriteId;
+	public RegularSD(Gengine engine) {
+		this.engine = engine;
 	}
 
-	public void setFrame(int frame) {
-		this.frame = frame;
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
+		nFrame = sprite.getNFrame();
+		sFrameRate = sprite.getFrameRate();
+		currentFrame = sprite.getFrame(frameId);
+	}
+
+	public void setFrameId(int frameId) {
+		this.frameId = frameId;
+		currentFrame = sprite.getFrame(frameId);
 	}
 
 	public void setNFrame(int nFrame) {
@@ -26,21 +40,18 @@ public class RegularSD implements SpriteDisplayer {
 		this.sFrameRate = sFrameRate;
 	}
 
-	public int getSpriteId() {
-		return spriteId;
-	}
-
-	public int getFrame() {
-		return frame;
+	public int getFrameId() {
+		return frameId;
 	}
 
 	public void frameIncr() {
 		if (System.nanoTime() - lastIncr >= 1E9 / sFrameRate) {
 			lastIncr = System.nanoTime();
 
-			frame++;
-			if (frame == nFrame)
-				frame = 0;
+			frameId++;
+			if (frameId == nFrame)
+				frameId = 0;
+			currentFrame = sprite.getFrame(frameId);
 		}
 	}
 
@@ -48,10 +59,16 @@ public class RegularSD implements SpriteDisplayer {
 		if (System.nanoTime() - lastIncr >= 1E9 / sFrameRate) {
 			lastIncr = System.nanoTime();
 
-			frame--;
-			if (frame == -1)
-				frame = nFrame - 1;
+			frameId--;
+			if (frameId == -1)
+				frameId = nFrame - 1;
+			currentFrame = sprite.getFrame(frameId);
 		}
+	}
+
+	public void show(int x, int y) {
+
+		engine.display.drawImage(currentFrame, x, y);
 	}
 
 }

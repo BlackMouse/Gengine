@@ -1,16 +1,22 @@
 package edu.bouyaka.engine;
 
+import edu.bouyaka.engine.abstracted.Trajectory;
 import edu.bouyaka.engine.abstracted.Vector;
 
 public class Concrete extends Entity {
 	public Vector pos = new Vector();
 	public Vector spd = new Vector();
 	public Vector acc = new Vector();
+	protected Trajectory trajectory;
 	protected int[] size = new int[2];
 
 	public boolean collisionEnabled = true, fixed = false;
 
-	// Déplacement de l'entitée
+	public void move() {
+		if (trajectory != null) {
+			trajectory.guide(this);
+		}
+	}
 
 	public void moveUp(int n) {
 	}
@@ -34,6 +40,30 @@ public class Concrete extends Entity {
 	}
 
 	public void moveDownLeft(int n) {
+	}
+
+	public void followTrajectory(Trajectory T) {
+		trajectory = T;
+	}
+
+	public void stopFollowingTrajectory() {
+		trajectory = null;
+	}
+
+
+	public void moveTo(Vector v) {
+		if (Math.abs(v.getX() - pos.getX()) > Math.abs(v.getY() - pos.getY())) {
+			if (v.getX() - pos.getX() > 0)
+				moveRight(1);
+			else
+				moveLeft(1);
+		} else {
+			if (v.getY() - pos.getY() > 0)
+				moveDown(1);
+			else
+				moveUp(1);
+		}
+
 	}
 
 	public boolean isTouchingEdge() {

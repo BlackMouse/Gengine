@@ -3,7 +3,7 @@ package edu.bouyaka.engine;
 import edu.bouyaka.engine.interfaces.Collision;
 import edu.bouyaka.engine.interfaces.RegularC;
 
-public class UpdateEntity extends Thread {
+public class UpdateEntity /* extends Thread */{
 	private Gengine engine;
 	private Collision collision = new RegularC();
 	private boolean processed = true;
@@ -14,9 +14,9 @@ public class UpdateEntity extends Thread {
 
 	public void run() {
 		processed = false;
-		//Concrete update
+		// Concrete update
 		if (engine.state != "Pause") {
-			for (int type = 0; type <=2; type++) {
+			for (int type = 0; type <= 2; type++) {
 				for (int entity = 0; entity < engine.entityArray[type].length; entity++) {
 					if (engine.entityArray[type][entity] != null)
 						if (engine.entityArray[type][entity].isEnabled()) {
@@ -26,17 +26,16 @@ public class UpdateEntity extends Thread {
 				}
 			}
 		}
-		
 
-		//Abstract update
-			for (int type = 3; type < engine.entityArray.length; type++) {
-				for (int entity = 0; entity < engine.entityArray[type].length; entity++) {
-					if (engine.entityArray[type][entity] != null)
-						if (engine.entityArray[type][entity].isEnabled()) {
-							engine.entityArray[type][entity].checkMouse();
-							engine.entityArray[type][entity].update();
-						}
-				
+		// Abstract update
+		for (int type = 3; type < engine.entityArray.length; type++) {
+			for (int entity = 0; entity < engine.entityArray[type].length; entity++) {
+				if (engine.entityArray[type][entity] != null)
+					if (engine.entityArray[type][entity].isEnabled()) {
+						engine.entityArray[type][entity].checkMouse();
+						engine.entityArray[type][entity].update();
+					}
+
 			}
 		}
 		engine.cursor.resetClick();
@@ -47,7 +46,8 @@ public class UpdateEntity extends Thread {
 						for (int typeB = 0; typeB < 3; typeB++) {
 							for (int entityB = entityA; entityB < engine.entityArray[typeB].length; entityB++) {
 								if (engine.entityArray[typeB][entityB] != null)
-									if (engine.entityArray[typeB][entityB].isEnabled()) {
+									if (engine.entityArray[typeB][entityB]
+											.isEnabled()) {
 										collision
 												.collide(
 														engine.entityArray[typeA][entityA],

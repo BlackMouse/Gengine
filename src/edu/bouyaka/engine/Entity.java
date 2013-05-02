@@ -1,9 +1,10 @@
 package edu.bouyaka.engine;
 
 public abstract class Entity {
-	public static Gengine engine;
+	protected static Gengine engine;
 	protected boolean enabled, visible;
-	protected String type;
+	protected String type = "Entity";
+	protected double[] prop = new double[5];
 
 	public void update() {
 	}
@@ -26,11 +27,29 @@ public abstract class Entity {
 		visible = state;
 	}
 
+	public void setHeightLevel(int h) {
+		engine.heightManager.setHeight(h, this);
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	public boolean isVisible() {
 		return visible;
+	}
+
+	public double prop(int id) {
+		if (id >= prop.length || id < 0)
+			return -1;
+		else
+			return prop[id];
+	}
+
+	public void setProp(int id, double prop) {
+		if (id >= this.prop.length || id < 0)
+			return;
+		else
+			this.prop[id] = prop;
 	}
 }

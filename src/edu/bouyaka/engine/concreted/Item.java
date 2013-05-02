@@ -3,6 +3,7 @@ package edu.bouyaka.engine.concreted;
 import java.awt.Color;
 
 import edu.bouyaka.engine.Concrete;
+import edu.bouyaka.engine.abstracted.Sprite;
 import edu.bouyaka.engine.abstracted.Vector;
 import edu.bouyaka.engine.interfaces.Movings;
 import edu.bouyaka.engine.interfaces.RegularM;
@@ -12,28 +13,32 @@ import edu.bouyaka.engine.interfaces.SpriteDisplayer;
 public class Item extends Concrete {
 	private Movings movings;
 	private SpriteDisplayer spriteDisplayer;
+	private Sprite sprite;
 
 	public Item() {
 		movings = new RegularM(pos, size, engine, this);
-		spriteDisplayer = new RegularSD();
+		spriteDisplayer = new RegularSD(engine);
 		type = "Item";
 	}
 
 	public void update() {
 		frameIncr();
+		move();
 	}
 
 	public void show() {
-		engine.display.drawImage(
-				engine.Sprite(getSpriteId()).get(spriteDisplayer.getFrame()),
-				(int) (pos.getRX() - size[0] / 2),
+		size[0] = sprite.getWidth();
+		size[1] = sprite.getHeight();
+		spriteDisplayer.show((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2));
+		if (!engine.devMode)
+			return;
 		engine.display.setColor(Color.green);
 		engine.display.drawRect((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
 	}
 
-	// Déplacement de l'entitée
+	// Dï¿½placement de l'entitï¿½e
 
 	public void moveUp(int n) {
 		movings.moveUp(n);
@@ -75,15 +80,16 @@ public class Item extends Concrete {
 		movings.move(direction);
 	}
 
-	public void setSpriteId(int spriteId) {
-		spriteDisplayer.setSpriteId(spriteId);
-		size[0] = engine.Sprite(spriteId).getWidth();
-		size[1] = engine.Sprite(spriteId).getHeight();
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
+		spriteDisplayer.setSprite(sprite);
+		size[0] = sprite.getWidth();
+		size[1] = sprite.getHeight();
 
 	}
 
-	public void setFrame(int frame) {
-		spriteDisplayer.setFrame(frame);
+	public void setFrameId(int frameId) {
+		spriteDisplayer.setFrameId(frameId);
 
 	}
 
@@ -97,12 +103,12 @@ public class Item extends Concrete {
 
 	}
 
-	public int getSpriteId() {
-		return spriteDisplayer.getSpriteId();
+	public Sprite getSprite() {
+		return sprite;
 	}
 
-	public int getFrame() {
-		return spriteDisplayer.getFrame();
+	public int getFrameId() {
+		return spriteDisplayer.getFrameId();
 	}
 
 	public int getWidth() {
