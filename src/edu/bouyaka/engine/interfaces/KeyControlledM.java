@@ -95,31 +95,31 @@ public class KeyControlledM implements Movings {
 
 	public void move() {
 		if (engine.keyboard.keyP(upKey) && engine.keyboard.keyP(leftKey)) {
-			moveUpLeft(2);
+			moveUpLeft(1);
 
 		} else if (engine.keyboard.keyP(upKey)
 				&& engine.keyboard.keyP(rightKey)) {
-			moveUpRight(2);
+			moveUpRight(1);
 
 		} else if (engine.keyboard.keyP(downKey)
 				&& engine.keyboard.keyP(leftKey)) {
-			moveDownLeft(2);
+			moveDownLeft(1);
 
 		} else if (engine.keyboard.keyP(downKey)
 				&& engine.keyboard.keyP(rightKey)) {
-			moveDownRight(2);
+			moveDownRight(1);
 
 		} else if (engine.keyboard.keyP(upKey))
 			moveUp(2);
 
 		else if (engine.keyboard.keyP(downKey))
-			moveDown(2);
+			moveDown(1);
 
 		else if (engine.keyboard.keyP(leftKey))
-			moveLeft(2);
+			moveLeft(1);
 
 		else if (engine.keyboard.keyP(rightKey))
-			moveRight(2);
+			moveRight(1);
 
 	}
 
@@ -141,6 +141,22 @@ public class KeyControlledM implements Movings {
 
 	public void setRightKey(int key) {
 		rightKey = key;
+	}
+
+	public int getUpKey() {
+		return upKey;
+	}
+
+	public int getDownKey() {
+		return downKey;
+	}
+	
+	public int getLeftKey() {
+		return leftKey;
+	}
+
+	public int getRightKey() {
+		return rightKey;
 	}
 
 }

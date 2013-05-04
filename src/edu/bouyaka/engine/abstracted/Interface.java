@@ -38,10 +38,11 @@ public class Interface extends Abstract {
 	// Actualisation de l'affichage
 	public void show() {
 		for (int id = 0; id <= maxId; id++) {
-			buttonArray[id].show();
+			if (buttonArray[id] != null)
+				buttonArray[id].show();
 		}
-		engine.display.drawImage(interfaceContent,0,0);
-		//clean();
+		engine.display.drawImage(interfaceContent, 0, 0);
+		clean();
 	}
 
 	// Nettoyage de l'interface
@@ -55,7 +56,7 @@ public class Interface extends Abstract {
 	}
 
 	public Interface() {
-		type= "Interface";
+		type = "Interface";
 		interfaceContent = new BufferedImage(engine.displayWidth,
 				engine.displayHeight, BufferedImage.TYPE_INT_ARGB);
 		// Cr�ation d'un syst�me de modification du tampon d'interface
@@ -66,7 +67,8 @@ public class Interface extends Abstract {
 
 	public void enable(boolean state) {
 		for (int id = 0; id <= maxId; id++) {
-			buttonArray[id].enable(state);
+			if (buttonArray[id] != null)
+				buttonArray[id].enable(state);
 		}
 		enabled = state;
 	}

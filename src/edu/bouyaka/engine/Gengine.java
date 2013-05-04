@@ -15,8 +15,10 @@ import edu.bouyaka.engine.concreted.Button;
 import edu.bouyaka.engine.concreted.Item;
 import edu.bouyaka.engine.concreted.Npc;
 import edu.bouyaka.engine.concreted.Player;
+import edu.bouyaka.engine.interfaces.Collision;
+import edu.bouyaka.engine.interfaces.RegularC;
 
-public class Gengine {
+public final class Gengine {
 
 	public int displayWidth = 1280, displayHeight = 720, screenWidth,
 			screenHeight;
@@ -33,13 +35,14 @@ public class Gengine {
 	public File resDir;
 	private UpdateScreen refreshLoop;
 	private UpdateEntity updateEntityLoop;
-	public HeightMapManager heightManager = new HeightMapManager(50, 10);
+	public HeightMapManager heightManager = new HeightMapManager(200, 10);
 	private Timer refreshTimer;
 	public Vector vRef = new Vector();
 	public Mouse cursor = new Mouse();
 	public Keyboard keyboard = new Keyboard();
 	public char lastInput;
 	public String state;
+	public Collision collision = new RegularC();
 
 	// Entity[0]=Players array
 	// Entity[1]=Npc array

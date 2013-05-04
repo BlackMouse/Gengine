@@ -149,4 +149,28 @@ public class RegularM implements Movings {
 	public void setRightKey(int key) {
 	}
 
+	@Override
+	public int getUpKey() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDownKey() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getLeftKey() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRightKey() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

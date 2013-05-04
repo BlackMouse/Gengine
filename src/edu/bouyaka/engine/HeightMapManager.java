@@ -29,10 +29,10 @@ public class HeightMapManager {
 		
 		int targetHeight = height * entityPerLevel-1;
 		int shift = targetHeight - 1;
-		for (int h = targetHeight - 1; h >= 0 && heightMap[h] != null; h--) {
+		for (int h = targetHeight - 1; h >= 0 && heightMap[h+1] != null; h--) {
 			shift = h;
 		}
-		for (int h = 0; h < targetHeight; h++) {
+		for (int h = shift; h < targetHeight; h++) {
 			heightMap[h] = heightMap[h + 1];
 		}
 		for (int h = 0; h < entityN; h++) {

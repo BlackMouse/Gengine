@@ -59,7 +59,7 @@ public class Concrete extends Entity {
 				moveLeft(1);
 		} else {
 			if (v.getY() - pos.getY() > 0)
-				moveDown(1);
+				moveDown(1); 
 			else
 				moveUp(1);
 		}
@@ -93,7 +93,6 @@ public class Concrete extends Entity {
 	 * 
 	 * @param y Baila bamba
 	 */
-
 	public void collideTo(Concrete E) {
 	}
 

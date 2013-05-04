@@ -72,16 +72,20 @@ public class Mouse extends Entity implements MouseListener, MouseMotionListener 
 		return lastR;
 	}
 
-	public boolean getPButton(int id) {
-		return pButton[id];
-	}
-
 	public Vector getLastC() {
 		return lastC;
 	}
 
+	public boolean getPButton(int id) {
+		if (clicked)
+			return pButton[id];
+		return false;
+	}
+
 	public boolean getCButton(int id) {
-		return cButton[id];
+		if (clicked)
+			return cButton[id];
+		return false;
 	}
 
 	public boolean isClicked() {

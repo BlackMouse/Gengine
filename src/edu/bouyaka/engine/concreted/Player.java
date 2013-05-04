@@ -92,6 +92,22 @@ public class Player extends Concrete {
 		movings.setRightKey(key);
 	}
 
+	public int getUpKey() {
+		return movings.getUpKey();
+	}
+
+	public int getDownKey() {
+		return movings.getDownKey();
+	}
+
+	public int getLeftKey() {
+		return movings.getLeftKey();
+	}
+
+	public int getRightKey() {
+		return movings.getRightKey();
+	}
+
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite.clone();
 		spriteDisplayer.setSprite(this.sprite);

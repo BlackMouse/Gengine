@@ -1,11 +1,9 @@
 package edu.bouyaka.engine;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
@@ -83,7 +81,7 @@ public class Display extends JPanel {
 	public void drawLine(int x1, int y1, int x2, int y2) {
 		cG.drawLine(x1, y1, x2, y2);
 	}
-	
+
 	/*
 	 * Dessin d'un rectangle dans le tampon d'edition
 	 */

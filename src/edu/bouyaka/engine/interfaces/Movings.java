@@ -10,6 +10,14 @@ public interface Movings {
 
 	public void setRightKey(int key);
 
+	public int getUpKey();
+
+	public int getDownKey();
+
+	public int getLeftKey();
+
+	public int getRightKey();
+
 	public void moveUp(int n);
 
 	public void moveDown(int n);

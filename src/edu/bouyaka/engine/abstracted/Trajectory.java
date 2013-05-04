@@ -16,7 +16,7 @@ public class Trajectory extends Abstract {
 	}
 
 	public void guide(Concrete E) {
-		if (Points[currentPoint].getDistanceTo(E.pos) < 1) {
+		if (Points[currentPoint].getDistanceTo(E.pos) < 4/engine.vRef.getDistanceTo(new Vector())) {
 			checked[currentPoint] = true;
 			currentPoint++;
 

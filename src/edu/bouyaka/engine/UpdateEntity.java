@@ -1,11 +1,8 @@
 package edu.bouyaka.engine;
 
-import edu.bouyaka.engine.interfaces.Collision;
-import edu.bouyaka.engine.interfaces.RegularC;
 
 public class UpdateEntity /* extends Thread */{
 	private Gengine engine;
-	private Collision collision = new RegularC();
 	private boolean processed = true;
 
 	public UpdateEntity(Gengine engine) {
@@ -39,6 +36,8 @@ public class UpdateEntity /* extends Thread */{
 			}
 		}
 		engine.cursor.resetClick();
+
+		// Collision check
 		for (int typeA = 0; typeA < 3; typeA++) {
 			for (int entityA = 0; entityA < engine.entityArray[typeA].length; entityA++) {
 				if (engine.entityArray[typeA][entityA] != null)
@@ -48,7 +47,7 @@ public class UpdateEntity /* extends Thread */{
 								if (engine.entityArray[typeB][entityB] != null)
 									if (engine.entityArray[typeB][entityB]
 											.isEnabled()) {
-										collision
+										engine.collision
 												.collide(
 														engine.entityArray[typeA][entityA],
 														engine.entityArray[typeB][entityB]);
