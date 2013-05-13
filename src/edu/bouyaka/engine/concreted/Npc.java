@@ -3,7 +3,7 @@ package edu.bouyaka.engine.concreted;
 import java.awt.Color;
 
 import edu.bouyaka.engine.Concrete;
-import edu.bouyaka.engine.abstracted.Sprite;
+import edu.bouyaka.engine.Sprite;
 import edu.bouyaka.engine.interfaces.Movings;
 import edu.bouyaka.engine.interfaces.RegularM;
 import edu.bouyaka.engine.interfaces.RegularSD;

@@ -4,15 +4,13 @@ public abstract class Entity {
 	protected static Gengine engine;
 	protected boolean enabled, visible;
 	protected String type = "Entity";
-	protected double[] prop = new double[5];
+	protected String[] param = new String[5];
+	public boolean concreted;
 
 	public void update() {
 	}
 
 	public void show() {
-	}
-
-	public void checkMouse() {
 	}
 
 	public String getType() {
@@ -39,17 +37,17 @@ public abstract class Entity {
 		return visible;
 	}
 
-	public double prop(int id) {
-		if (id >= prop.length || id < 0)
-			return -1;
+	public String param(int paramId) {
+		if (paramId >= param.length || paramId < 0)
+			return null;
 		else
-			return prop[id];
+			return param[paramId];
 	}
 
-	public void setProp(int id, double prop) {
-		if (id >= this.prop.length || id < 0)
+	public void setParam(int paramId, String param) {
+		if (paramId >= this.param.length || paramId < 0)
 			return;
 		else
-			this.prop[id] = prop;
+			this.param[paramId] = param;
 	}
 }

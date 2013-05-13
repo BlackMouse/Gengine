@@ -4,14 +4,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import edu.bouyaka.engine.abstracted.Sprite;
 import edu.bouyaka.engine.abstracted.Vector;
 
 public class Mouse extends Entity implements MouseListener, MouseMotionListener {
 	private Vector pos = new Vector(), lastP = new Vector(),
 			lastR = new Vector(), lastC = new Vector();
 	private boolean[] pButton = new boolean[5], cButton = new boolean[5];
-	private boolean clicked;
+	private boolean clicked, pressed;
 	private Sprite defaultSprite, clickSprite;
 
 	public void mouseClicked(MouseEvent evt) {
@@ -28,10 +27,11 @@ public class Mouse extends Entity implements MouseListener, MouseMotionListener 
 	}
 
 	public void mousePressed(MouseEvent evt) {
-		lastR.setR(evt.getX(), evt.getY());
+		lastP.setR(evt.getX(), evt.getY());
 		if (clickSprite != null)
 			engine.display.setCursor(clickSprite);
 		pButton[evt.getButton()] = true;
+		pressed = true;
 	}
 
 	public void mouseReleased(MouseEvent evt) {
@@ -77,7 +77,7 @@ public class Mouse extends Entity implements MouseListener, MouseMotionListener 
 	}
 
 	public boolean getPButton(int id) {
-		if (clicked)
+		if (pressed)
 			return pButton[id];
 		return false;
 	}
@@ -92,8 +92,13 @@ public class Mouse extends Entity implements MouseListener, MouseMotionListener 
 		return clicked;
 	}
 
+	public boolean isPressed() {
+		return pressed;
+	}
+
 	public void resetClick() {
 		clicked = false;
+		pressed = true;
 	}
 
 }

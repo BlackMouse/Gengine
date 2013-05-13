@@ -1,6 +1,6 @@
 package edu.bouyaka.engine;
 
-import java.awt.Color;
+import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
@@ -8,13 +8,13 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
-import edu.bouyaka.engine.abstracted.Interface;
-import edu.bouyaka.engine.abstracted.Sprite;
+import edu.bouyaka.engine.Interface;
 import edu.bouyaka.engine.abstracted.Vector;
 import edu.bouyaka.engine.concreted.Button;
 import edu.bouyaka.engine.concreted.Item;
 import edu.bouyaka.engine.concreted.Npc;
 import edu.bouyaka.engine.concreted.Player;
+import edu.bouyaka.engine.concreted.Sound;
 import edu.bouyaka.engine.interfaces.Collision;
 import edu.bouyaka.engine.interfaces.RegularC;
 
@@ -32,17 +32,20 @@ public final class Gengine {
 	public BufferedImage mainBackGround, mainContent, mainInterface;
 	public Display display;
 	public JFrame window;
-	public File resDir;
-	private UpdateScreen refreshLoop;
-	private UpdateEntity updateEntityLoop;
+	public File resDir = new File(System.getProperty("user.dir") + "/res/", "/");
+	public UpdateScreen refreshLoop;
+	public UpdateEntity updateEntityLoop;
 	public HeightMapManager heightManager = new HeightMapManager(200, 10);
 	private Timer refreshTimer;
 	public Vector vRef = new Vector();
-	public Mouse cursor = new Mouse();
+	public Mouse mouse = new Mouse();
 	public Keyboard keyboard = new Keyboard();
 	public char lastInput;
 	public String state;
 	public Collision collision = new RegularC();
+	public String GameName = "DAh";
+	public Entity selectedEntity = null;
+	public GraphicsConfiguration screenConfig;
 
 	// Entity[0]=Players array
 	// Entity[1]=Npc array
@@ -50,15 +53,16 @@ public final class Gengine {
 	// Entity[3]=Interface array
 	// Entity[4]=Buttons array
 	// Entity[5]=Sprites array
-	// Entity[6]=Undefined array
+	// Entity[6]=Sounds array
 	// Entity[7]=Undefined array
 	public Entity[][] entityArray;
 
-	public Gengine() {
+	public Gengine(String GameName) {
+		this.GameName = GameName;
 		refreshTimer = new Timer();
 		Entity.engine = this;
 		// Cr�ation d'une fen�tre principale
-		window = new JFrame("Default");
+		window = new JFrame(GameName);
 		entityArray = new Entity[6][];
 		entityEnabled = new boolean[6][];
 		setPlayerAmount(2);
@@ -72,6 +76,7 @@ public final class Gengine {
 		// D�tection de l'affichage
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice();
+		screenConfig = gd.getDefaultConfiguration();
 		screenWidth = gd.getDisplayMode().getWidth();
 		screenHeight = gd.getDisplayMode().getHeight();
 
@@ -101,13 +106,16 @@ public final class Gengine {
 
 	public void update() {
 		refreshTimer.newTimeKey();
+
 		if (updateEntityLoop.isProcessed())
 			updateEntityLoop.run();
 
 		if (refreshLoop.isProcessed())
 			refreshLoop.run();
+
 		double delta = refreshTimer.delta();
 		tick = 15 * delta / (1E8);
+		fps = 1.0E9 / delta;
 		tickTime = tickTime + tick;
 
 	}
@@ -136,28 +144,50 @@ public final class Gengine {
 		return (Sprite) entityArray[5][id];
 	}
 
+	public Sound Sound(int id) {
+		return (Sound) entityArray[6][id];
+	}
+
 	public void replacePlayer(int id, Player E) {
+		if (id >= entityArray[0].length)
+			setPlayerAmount(id + 1);
 		entityArray[0][id] = E;
 	}
 
 	public void replaceNpc(int id, Npc E) {
+		if (id >= entityArray[1].length)
+			setNpcAmount(id + 1);
 		entityArray[1][id] = E;
 	}
 
 	public void replaceItem(int id, Item E) {
+		if (id >= entityArray[2].length)
+			setItemAmount(id + 1);
 		entityArray[2][id] = E;
 	}
 
 	public void replaceInterface(int id, Interface E) {
+		if (id >= entityArray[3].length)
+			setInterfaceAmount(id + 1);
 		entityArray[3][id] = E;
 	}
 
 	public void replaceButton(int id, Button E) {
+		if (id >= entityArray[4].length)
+			setButtonAmount(id + 1);
 		entityArray[4][id] = E;
 	}
 
 	public void replaceSprite(int id, Sprite E) {
+		if (id >= entityArray[5].length)
+			setSpriteAmount(id + 1);
 		entityArray[5][id] = E;
+	}
+
+	public void replaceSound(int id, Sound E) {
+		if (id >= entityArray[6].length)
+			setSoundAmount(id + 1);
+		entityArray[6][id] = E;
 	}
 
 	public void addPlayer(int id) {
@@ -196,14 +226,18 @@ public final class Gengine {
 		entityArray[5][id] = new Sprite(image, nFrame, frameRate);
 	}
 
+	public void addSound(int id, String location) {
+		if (id >= entityArray[6].length)
+			setSpriteAmount(id + 1);
+		entityArray[6][id] = new Sound(location);
+	}
+
 	public void createDisplay(int width, int height) {
 		display = new Display(width, height, this);
 
 		// Configuration de la zone d'affichage du jeu
 		display.setFocusable(true);
 		display.requestFocus();
-		display.setBlankColor(new Color(255, 255, 255, (int) (255 / (Math.pow(
-				2, blurAmount)))));
 	}
 
 	public void setPlayerAmount(int amount) {
@@ -213,12 +247,7 @@ public final class Gengine {
 				eTmp[id] = (Player) entityArray[0][id];
 			}
 		entityArray[0] = eTmp;
-		boolean[] bTmp = new boolean[amount];
-		if (entityEnabled[0] != null)
-			for (int id = 0; id < amount && id < (entityEnabled[0].length); id++) {
-				bTmp[id] = entityEnabled[0][id];
-			}
-		entityEnabled[0] = bTmp;
+
 	}
 
 	public void setNpcAmount(int amount) {
@@ -229,12 +258,7 @@ public final class Gengine {
 				eTmp[id] = (Npc) entityArray[1][id];
 			}
 		entityArray[1] = eTmp;
-		boolean[] bTmp = new boolean[amount];
-		if (entityEnabled[1] != null)
-			for (int id = 0; id < amount && id < (entityEnabled[1].length); id++) {
-				bTmp[id] = entityEnabled[1][id];
-			}
-		entityEnabled[1] = bTmp;
+
 	}
 
 	public void setItemAmount(int amount) {
@@ -245,12 +269,7 @@ public final class Gengine {
 				eTmp[id] = (Item) entityArray[2][id];
 			}
 		entityArray[2] = eTmp;
-		boolean[] bTmp = new boolean[amount];
-		if (entityEnabled[2] != null)
-			for (int id = 0; id < amount && id < (entityEnabled[2].length); id++) {
-				bTmp[id] = entityEnabled[2][id];
-			}
-		entityEnabled[2] = bTmp;
+
 	}
 
 	public void setInterfaceAmount(int amount) {
@@ -261,12 +280,7 @@ public final class Gengine {
 				eTmp[id] = (Interface) entityArray[3][id];
 			}
 		entityArray[3] = eTmp;
-		boolean[] bTmp = new boolean[amount];
-		if (entityEnabled[3] != null)
-			for (int id = 0; id < amount && id < (entityEnabled[3].length); id++) {
-				bTmp[id] = entityEnabled[0][id];
-			}
-		entityEnabled[3] = bTmp;
+
 	}
 
 	public void setButtonAmount(int amount) {
@@ -277,28 +291,27 @@ public final class Gengine {
 				eTmp[id] = (Button) entityArray[4][id];
 			}
 		entityArray[4] = eTmp;
-		boolean[] bTmp = new boolean[amount];
-		if (entityEnabled[4] != null)
-			for (int id = 0; id < amount && id < (entityEnabled[4].length); id++) {
-				bTmp[id] = entityEnabled[4][id];
-			}
-		entityEnabled[4] = bTmp;
+
 	}
 
 	public void setSpriteAmount(int amount) {
 		Sprite[] eTmp = new Sprite[amount];
-		entityEnabled[5] = new boolean[amount];
 		if (entityArray[5] != null)
 			for (int id = 0; id < amount && id < (entityArray[5].length); id++) {
 				eTmp[id] = (Sprite) entityArray[5][id];
 			}
 		entityArray[5] = eTmp;
-		boolean[] bTmp = new boolean[amount];
-		if (entityEnabled[0] != null)
-			for (int id = 0; id < amount && id < (entityEnabled[0].length); id++) {
-				bTmp[id] = entityEnabled[0][id];
+
+	}
+
+	public void setSoundAmount(int amount) {
+		Sound[] eTmp = new Sound[amount];
+		if (entityArray[6] != null)
+			for (int id = 0; id < amount && id < (entityArray[6].length); id++) {
+				eTmp[id] = (Sound) entityArray[6][id];
 			}
-		entityEnabled[5] = bTmp;
+		entityArray[6] = eTmp;
+
 	}
 
 }

@@ -3,8 +3,8 @@ package edu.bouyaka.engine.abstracted;
 import edu.bouyaka.engine.Abstract;
 
 public class Vector extends Abstract {
-	Vector attachedVector;
-	double x = 0, y = 0, lastUpdate;
+	private Vector attachedVector;
+	private double x = 0, y = 0, lastUpdate;
 
 	public void setX(double X) {
 		x = X;
@@ -28,7 +28,8 @@ public class Vector extends Abstract {
 	}
 
 	public double getDistanceTo(Vector v) {
-		return Math.sqrt(Math.pow(v.getX()-getX(),2)+Math.pow(v.getY()-getY(),2));
+		return Math.sqrt(Math.pow(v.getX() - getX(), 2)
+				+ Math.pow(v.getY() - getY(), 2));
 	}
 
 	public double getRX() {

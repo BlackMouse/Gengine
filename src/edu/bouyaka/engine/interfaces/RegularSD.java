@@ -3,7 +3,7 @@ package edu.bouyaka.engine.interfaces;
 import java.awt.image.BufferedImage;
 
 import edu.bouyaka.engine.Gengine;
-import edu.bouyaka.engine.abstracted.Sprite;
+import edu.bouyaka.engine.Sprite;
 
 public class RegularSD implements SpriteDisplayer {
 
@@ -15,6 +15,7 @@ public class RegularSD implements SpriteDisplayer {
 	private long lastIncr;
 	private BufferedImage currentFrame;
 	private Gengine engine;
+	private boolean loop = false;
 
 	public RegularSD(Gengine engine) {
 		this.engine = engine;
@@ -44,13 +45,21 @@ public class RegularSD implements SpriteDisplayer {
 		return frameId;
 	}
 
+	public void loop(boolean loop) {
+		this.loop = loop;
+	}
+
 	public void frameIncr() {
 		if (System.nanoTime() - lastIncr >= 1E9 / sFrameRate) {
 			lastIncr = System.nanoTime();
 
 			frameId++;
-			if (frameId == nFrame)
+			if (frameId == nFrame && loop)
 				frameId = 0;
+			else if (!loop) {
+				frameId = nFrame - 1;
+				return;
+			}
 			currentFrame = sprite.getFrame(frameId);
 		}
 	}
@@ -60,8 +69,12 @@ public class RegularSD implements SpriteDisplayer {
 			lastIncr = System.nanoTime();
 
 			frameId--;
-			if (frameId == -1)
+			if (frameId == -1 && loop)
 				frameId = nFrame - 1;
+			else if (!loop) {
+				frameId = 0;
+				return;
+			}
 			currentFrame = sprite.getFrame(frameId);
 		}
 	}

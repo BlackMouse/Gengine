@@ -16,11 +16,10 @@ import edu.bouyaka.engine.Concrete;
 
 public class Sound extends Concrete {
 	Clip soundClip = null;
-	boolean loop, playing;
+	boolean loop;
+	public AudioInputStream audioInputStream;
 
 	public Sound(String fileName) {
-
-		AudioInputStream audioInputStream = null;
 		try {
 			try {
 				audioInputStream = AudioSystem.getAudioInputStream(new File(
@@ -34,7 +33,7 @@ public class Sound extends Concrete {
 									+ fileName));
 				} catch (FileNotFoundException e1) {
 					System.out.println("Erreur dans le chargement du son: "
-							+ fileName + "N'a pas pu �tre charg�");
+							+ "res/" + fileName + " N'a pas pu �tre charg�");
 				}
 
 			}
@@ -42,15 +41,9 @@ public class Sound extends Concrete {
 			AudioFormat format = audioInputStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, format);
 			soundClip = (Clip) AudioSystem.getLine(info);
-			soundClip.open(audioInputStream);
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
+		} catch (UnsupportedAudioFileException | IOException
+				| LineUnavailableException e) {
+
 			e.printStackTrace();
 		}
 
@@ -58,46 +51,66 @@ public class Sound extends Concrete {
 
 	public void loop(boolean loop) {
 		this.loop = loop;
-		if (loop)
-			soundClip.loop(-1);
-		else
-			soundClip.loop(0);
+		if (soundClip.isOpen()) {
+			if (loop)
+				soundClip.loop(-1);
+			else
+				soundClip.loop(0);
+		}
 	}
 
 	public void play() {
-		playing = true;
-		stop();
+		if (!soundClip.isOpen())
+			try {
+				soundClip.open(audioInputStream);
+			} catch (LineUnavailableException | IOException e) {
+				e.printStackTrace();
+			}
+		soundClip.setFramePosition(0);
+
+		if (isPlaying())
+			soundClip.stop();
+
 		loop(loop);
 		soundClip.start();
 
 	}
 
 	public void stop() {
-		playing = false;
 		soundClip.stop();
-		soundClip.setMicrosecondPosition(0);
+		soundClip.setFramePosition(0);
 
 	}
 
 	public void pause() {
-		playing = false;
 		soundClip.stop();
 
 	}
 
 	public void resume() {
-		if (playing = false) {
-			playing = true;
-			soundClip.start();
-		}
+		loop(loop);
+		soundClip.start();
 
+	}
+
+	public long getPosition() {
+		return soundClip.getMicrosecondPosition()
+				% soundClip.getMicrosecondLength();
+	}
+
+	public void setPosition(long pos) {
+		soundClip.setMicrosecondPosition((long) (pos * 1.0E3));
 	}
 
 	public boolean isPlaying() {
-		if (soundClip.getMicrosecondLength() == soundClip
-				.getMicrosecondPosition())
+		if (!soundClip.isActive())
 			return false;
-		return playing;
+		if (soundClip.getMicrosecondPosition()
+				% soundClip.getMicrosecondLength() >= 0.9 * soundClip
+				.getMicrosecondLength()) {
+			stop();
+			return true;
+		}
+		return true;
 	}
-
 }

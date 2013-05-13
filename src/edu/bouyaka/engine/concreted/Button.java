@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import edu.bouyaka.engine.Concrete;
-import edu.bouyaka.engine.abstracted.Interface;
+import edu.bouyaka.engine.Interface;
 
 public class Button extends Concrete {
 
@@ -74,8 +74,8 @@ public class Button extends Concrete {
 		this.g = g;
 	}
 
-	public void setInterface(Interface E) {
-		fatherInterface = E;
+	public void setInterface(Interface Interface) {
+		fatherInterface = Interface;
 	}
 
 }

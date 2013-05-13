@@ -1,54 +1,23 @@
 package edu.bouyaka.engine.concreted;
 
-import edu.bouyaka.engine.Timer;
 
 public class TextBox extends Button {
-	private boolean typingEnabled;
-	private Timer typingDelay;
-	private String confirmedText;
-
-	public TextBox() {
-		super();
-		typingDelay = new Timer();
-		typingDelay.setDelay((long) 1E6);
-		typingDelay.start();
-
-	}
-
-	public void setTypingDelay(long delay) {
-		typingDelay.setDelay(delay);
-	}
-
-	protected void leftClick(double x, double y) {
-		typingEnabled = true;
-		engine.lastInput = '\0';
-	}
-
-	protected void middlePress(double x, double y) {
-	}
-
-	protected void rightPress(double x, double y) {
-	}
-
-	protected void hoover(double x, double y) {
-	}
+	private String confirmedText = "";
 
 	public String getConfirmedText() {
 		return confirmedText;
 	}
 
 	public void update() {
-		if (typingDelay.ended()&&typingEnabled) {
-			typingDelay.start();
+		if (engine.selectedEntity == this) {
 			char ch = engine.lastInput;
 
 			if (engine.keyboard.keyP(10)) {
-				typingEnabled = false;
+				engine.selectedEntity = null;
 				confirmedText = text;
 			} else
 
-			if (typingEnabled
-					&& engine.lastInput != '\0'
+			if (engine.lastInput != '\0'
 					&& (Character.isLetter(ch) || Character.isDigit(ch) || Character
 							.isSpaceChar(ch))) {
 				text = text + engine.lastInput;

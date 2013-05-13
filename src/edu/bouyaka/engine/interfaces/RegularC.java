@@ -20,7 +20,7 @@ public class RegularC implements Collision {
 			}
 	}
 
-	@Override
+	
 	public boolean areColliding(Entity a, Entity b) {
 		Concrete A = (Concrete) a;
 		Concrete B = (Concrete) b;

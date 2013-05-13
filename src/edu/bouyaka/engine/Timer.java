@@ -14,7 +14,6 @@ public class Timer {
 
 	public void setDelay(long timeAmount) {
 		this.timeAmount = timeAmount;
-		timeKeyB = timeAmount + System.nanoTime();
 	}
 
 	public void start() {
@@ -26,8 +25,9 @@ public class Timer {
 	}
 
 	public boolean ended() {
-		if (System.nanoTime() >= timeKeyB)
+		if (System.nanoTime() >= timeKeyB) {
 			return true;
+		}
 		return false;
 	}
 }
