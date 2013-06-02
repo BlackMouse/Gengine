@@ -5,9 +5,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
+
+import edu.bouyaka.engine.media.Sprite;
 
 @SuppressWarnings("serial")
 public class Display extends JPanel {
@@ -16,21 +19,30 @@ public class Display extends JPanel {
 	protected Graphics2D cG, dG;
 	private Gengine engine;
 
-	/*
+	/**
+	 * 
 	 * Definition des principales proprietes de la zone d'affichage
+	 * 
+	 * @param width
+	 *            : largeur de l'affichage
+	 * @param height
+	 *            : hauteur de l'affichage
+	 * @param engine
+	 *            : moteur calculant le contenu de l'affichage
 	 */
 	public Display(int width, int height, final Gengine engine) {
 		this.width = width;
 		this.height = height;
 		this.engine = engine;
 		// Creation d'une tampon d'affichage "dessin"
-		displayedContent = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_RGB);
+		displayedContent = engine.screenConfig.createCompatibleImage(width,
+				height, Transparency.OPAQUE);
 		// Creation d'une tampon de "dessin"
-		editedContent = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_RGB);
+		editedContent = engine.screenConfig.createCompatibleImage(width,
+				height, Transparency.OPAQUE);
 		// Creation d'une tampon servant de support pour l'eclairage
-		lightMap = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		lightMap = engine.screenConfig.createCompatibleImage(width, height,
+				Transparency.TRANSLUCENT);
 		cG = (Graphics2D) editedContent.createGraphics();
 		dG = (Graphics2D) displayedContent.createGraphics();
 
@@ -53,7 +65,7 @@ public class Display extends JPanel {
 	}
 
 	/**
-	 * Methode de validation de l'affichage
+	 * Valide de l'affichage
 	 */
 	public void newFrame() {
 		dG.drawImage(editedContent.getSubimage(0, 0, engine.displayWidth,
@@ -62,7 +74,7 @@ public class Display extends JPanel {
 	}
 
 	/**
-	 * Paermet d'ecrire une image dans le tampon d'edition
+	 * Permet d'ecrire une image dans le tampon d'edition
 	 * 
 	 * @param content
 	 *            : Image a ecrire
@@ -209,10 +221,20 @@ public class Display extends JPanel {
 
 	}
 
+	/**
+	 * Permet de définir une icone pour le curseur
+	 * 
+	 * @param sprite
+	 *            : sprite contenant l'icone
+	 */
 	public void setCursor(Sprite sprite) {
 		java.awt.Cursor c = Toolkit.getDefaultToolkit().createCustomCursor(
 				sprite.getFrame(0), new Point(0, 0), "mouse");
 		engine.display.setCursor(c);
+	}
+
+	public Graphics getG() {
+		return cG;
 	}
 
 }

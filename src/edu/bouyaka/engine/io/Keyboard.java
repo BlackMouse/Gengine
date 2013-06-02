@@ -1,11 +1,13 @@
-package edu.bouyaka.engine;
+package edu.bouyaka.engine.io;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import edu.bouyaka.engine.Entity;
+
 public class Keyboard extends Entity implements KeyListener {
 
-	public boolean[] keyMap = new boolean[256];
+	public boolean[] keyMap = new boolean[1024];
 
 	// Action lors de l'appui
 	public void keyPressed(KeyEvent key) {

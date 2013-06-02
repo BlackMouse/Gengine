@@ -1,4 +1,4 @@
-package edu.bouyaka.engine.abstracted;
+package edu.bouyaka.engine.io;
 
 import java.util.*;
 import java.io.*;
@@ -13,8 +13,6 @@ public class Config extends Abstract {
 	public Config(String location) {
 		fileName = location;
 		
-		System.out.println(engine.resDir.getAbsolutePath());
-		
 		try {
 			this.location = new FileInputStream(engine.resDir + fileName);
 			System.out
@@ -26,7 +24,7 @@ public class Config extends Abstract {
 			try {
 				this.location = new FileInputStream(engine.resDir + fileName);
 				System.out.println(engine.resDir.getAbsolutePath() + fileName
-						+ " Charge!");
+						+ " Loaded!");
 				
 			} catch (FileNotFoundException e1) {
 				System.out.println("Le fichier de configuration: " + fileName

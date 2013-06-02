@@ -1,9 +1,11 @@
-package edu.bouyaka.engine;
+package edu.bouyaka.engine.media;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+
+import edu.bouyaka.engine.Entity;
 
 /*
  * Definition des principales proprietes de la fenetre
@@ -12,6 +14,7 @@ public class Sprite extends Entity {
 	private BufferedImage image;
 	private int nFrame, frameRate, height, width, frameWidth, frameHeight;
 	final boolean enabled = false, visible = false;
+	private boolean loop = false, animated = false;
 
 	/*
 	 * Definition des principales proprietes de la fenetre
@@ -21,11 +24,20 @@ public class Sprite extends Entity {
 		this.height = this.frameHeight = image.getHeight();
 		this.image = engine.screenConfig.createCompatibleImage(width, height,
 				Transparency.TRANSLUCENT);
-		this.image.getGraphics().drawImage(
-				image, 0, 0, null);
+		this.image.getGraphics().drawImage(image, 0, 0, null);
 		this.nFrame = nFrame;
+		if (nFrame > 0)
+			animated = true;
 		this.frameWidth = width / nFrame;
 		this.frameRate = frameRate;
+	}
+
+	public void loop(boolean loop) {
+		this.loop = loop;
+	}
+
+	public boolean isLooped() {
+		return loop;
 	}
 
 	/*
@@ -74,8 +86,8 @@ public class Sprite extends Entity {
 	public void scale(double pourcentage) {
 		int newWidth = (int) (width * pourcentage / 100);
 		int newHeight = (int) (height * pourcentage / 100);
-		BufferedImage tmp = new BufferedImage(newWidth, newHeight,
-				BufferedImage.TYPE_INT_ARGB);
+		BufferedImage tmp = engine.screenConfig.createCompatibleImage(newWidth,
+				newHeight, Transparency.TRANSLUCENT);
 		Graphics2D g = tmp.createGraphics();
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 				RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -100,8 +112,8 @@ public class Sprite extends Entity {
 				newWidth = nFrame * newWidth;
 			}
 
-			BufferedImage tmp = new BufferedImage(newWidth, newHeight,
-					BufferedImage.TYPE_INT_ARGB);
+			BufferedImage tmp = engine.screenConfig.createCompatibleImage(
+					newWidth, newHeight, Transparency.TRANSLUCENT);
 			Graphics2D g = tmp.createGraphics();
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 					RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -111,8 +123,8 @@ public class Sprite extends Entity {
 			image = tmp;
 		} else {
 			newWidth = nFrame * newWidth;
-			BufferedImage tmp = new BufferedImage(newWidth, newHeight,
-					BufferedImage.TYPE_INT_ARGB);
+			BufferedImage tmp = engine.screenConfig.createCompatibleImage(
+					newWidth, newHeight, Transparency.TRANSLUCENT);
 			Graphics2D g = tmp.createGraphics();
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 					RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -128,12 +140,13 @@ public class Sprite extends Entity {
 		this.frameWidth = width / nFrame;
 	}
 
-	public Sprite clone() {
-		return new Sprite(image, nFrame, frameRate);
+	public boolean isAnimated() {
+		return animated;
 	}
 
-	public void finalize() {
-
-		image = null;
+	public Sprite clone() {
+		Sprite tmp = new Sprite(image, nFrame, frameRate);
+		tmp.loop(loop);
+		return tmp;
 	}
 }

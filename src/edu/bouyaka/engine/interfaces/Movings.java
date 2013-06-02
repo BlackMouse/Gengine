@@ -18,21 +18,21 @@ public interface Movings {
 
 	public int getRightKey();
 
-	public void moveUp(int n);
+	public void moveUp(double n);
 
-	public void moveDown(int n);
+	public void moveDown(double n);
 
-	public void moveLeft(int n);
+	public void moveLeft(double n);
 
-	public void moveRight(int n);
+	public void moveRight(double n);
 
-	public void moveUpRight(int n);
+	public void moveUpRight(double n);
 
-	public void moveDownRight(int n);
+	public void moveDownRight(double n);
 
-	public void moveUpLeft(int n);
+	public void moveUpLeft(double n);
 
-	public void moveDownLeft(int n);
+	public void moveDownLeft(double n);
 
 	public void move();
 

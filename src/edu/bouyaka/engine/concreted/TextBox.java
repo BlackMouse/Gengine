@@ -1,8 +1,12 @@
 package edu.bouyaka.engine.concreted;
 
-
 public class TextBox extends Button {
 	private String confirmedText = "";
+
+	public TextBox() {
+		clickable = true;
+		type = "TextButton";
+	}
 
 	public String getConfirmedText() {
 		return confirmedText;

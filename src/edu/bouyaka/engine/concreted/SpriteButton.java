@@ -3,16 +3,17 @@ package edu.bouyaka.engine.concreted;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import edu.bouyaka.engine.Sprite;
 import edu.bouyaka.engine.Interface;
 import edu.bouyaka.engine.interfaces.RegularSD;
 import edu.bouyaka.engine.interfaces.SpriteDisplayer;
+import edu.bouyaka.engine.media.Sprite;
 
 public class SpriteButton extends Button {
-	private SpriteDisplayer spriteDisplayer = new RegularSD(engine);
+	private SpriteDisplayer spriteDisplayer = new RegularSD();
 	private Sprite sprite;
 
 	public SpriteButton() {
+		clickable = true;
 		type = "SpriteButton";
 	}
 
@@ -22,15 +23,24 @@ public class SpriteButton extends Button {
 	}
 
 	public void show() {
+		if (g == null) {
+			g = engine.display.getG();
+		}
 		size[0] = sprite.getWidth();
 		size[1] = sprite.getHeight();
 		spriteDisplayer.show((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2));
 		if (!engine.devMode)
 			return;
-		engine.display.setColor(Color.green);
-		engine.display.drawRect((int) (pos.getRX() - size[0] / 2),
+		g.setColor(Color.green);
+		g.drawRect((int) (pos.getRX() - size[0] / 2),
 				(int) (pos.getRY() - size[1] / 2), size[0], size[1]);
+
+	}
+
+	public void update() {
+		if (sprite.isAnimated())
+			frameIncr();
 	}
 
 	public void setSprite(Sprite sprite) {

@@ -1,11 +1,12 @@
 package edu.bouyaka.engine.interfaces;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import edu.bouyaka.engine.Gengine;
-import edu.bouyaka.engine.Sprite;
+import edu.bouyaka.engine.Entity;
+import edu.bouyaka.engine.media.Sprite;
 
-public class RegularSD implements SpriteDisplayer {
+public class RegularSD extends Entity implements SpriteDisplayer {
 
 	// Identifiant du sprite representant l'entitee
 	private Sprite sprite;
@@ -14,12 +15,7 @@ public class RegularSD implements SpriteDisplayer {
 	private int frameId, nFrame = 1, sFrameRate;
 	private long lastIncr;
 	private BufferedImage currentFrame;
-	private Gengine engine;
-	private boolean loop = false;
-
-	public RegularSD(Gengine engine) {
-		this.engine = engine;
-	}
+	private Graphics g;
 
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
@@ -45,18 +41,14 @@ public class RegularSD implements SpriteDisplayer {
 		return frameId;
 	}
 
-	public void loop(boolean loop) {
-		this.loop = loop;
-	}
-
 	public void frameIncr() {
 		if (System.nanoTime() - lastIncr >= 1E9 / sFrameRate) {
 			lastIncr = System.nanoTime();
 
 			frameId++;
-			if (frameId == nFrame && loop)
+			if (frameId == nFrame && sprite.isLooped())
 				frameId = 0;
-			else if (!loop) {
+			else if (frameId == nFrame && !sprite.isLooped()) {
 				frameId = nFrame - 1;
 				return;
 			}
@@ -69,9 +61,9 @@ public class RegularSD implements SpriteDisplayer {
 			lastIncr = System.nanoTime();
 
 			frameId--;
-			if (frameId == -1 && loop)
+			if (frameId == -1 && sprite.isLooped())
 				frameId = nFrame - 1;
-			else if (!loop) {
+			else if (frameId == -1 && !sprite.isLooped()) {
 				frameId = 0;
 				return;
 			}
@@ -80,8 +72,11 @@ public class RegularSD implements SpriteDisplayer {
 	}
 
 	public void show(int x, int y) {
+		if (g == null) {
+			g = engine.display.getG();
+		}
+		g.drawImage(currentFrame, x, y, null);
 
-		engine.display.drawImage(currentFrame, x, y);
 	}
 
 }

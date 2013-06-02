@@ -3,11 +3,11 @@ package edu.bouyaka.engine.concreted;
 import java.awt.Color;
 
 import edu.bouyaka.engine.Concrete;
-import edu.bouyaka.engine.Sprite;
 import edu.bouyaka.engine.interfaces.Movings;
 import edu.bouyaka.engine.interfaces.RegularM;
 import edu.bouyaka.engine.interfaces.RegularSD;
 import edu.bouyaka.engine.interfaces.SpriteDisplayer;
+import edu.bouyaka.engine.media.Sprite;
 
 public class Npc extends Concrete {
 	private Movings movings;
@@ -15,13 +15,14 @@ public class Npc extends Concrete {
 	private Sprite sprite;
 
 	public Npc() {
-		movings = new RegularM(pos, size, engine, this);
-		spriteDisplayer = new RegularSD(engine);
+		movings = new RegularM(pos, size, this);
+		spriteDisplayer = new RegularSD();
 		type = "Npc";
 	}
 
 	public void update() {
-		frameIncr();
+		if (sprite.isAnimated())
+			frameIncr();
 		move();
 	}
 
@@ -39,35 +40,35 @@ public class Npc extends Concrete {
 
 	// D�placement de l'entit�e
 
-	public void moveUp(int n) {
+	public void moveUp(double n) {
 		movings.moveUp(n);
 	}
 
-	public void moveDown(int n) {
+	public void moveDown(double n) {
 		movings.moveDown(n);
 	}
 
-	public void moveLeft(int n) {
+	public void moveLeft(double n) {
 		movings.moveLeft(n);
 	}
 
-	public void moveRight(int n) {
+	public void moveRight(double n) {
 		movings.moveRight(n);
 	}
 
-	public void moveUpRight(int n) {
+	public void moveUpRight(double n) {
 		movings.moveUpRight(n);
 	}
 
-	public void moveDownRight(int n) {
+	public void moveDownRight(double n) {
 		movings.moveDownRight(n);
 	}
 
-	public void moveUpLeft(int n) {
+	public void moveUpLeft(double n) {
 		movings.moveUpLeft(n);
 	}
 
-	public void moveDownLeft(int n) {
+	public void moveDownLeft(double n) {
 		movings.moveDownLeft(n);
 	}
 
@@ -125,29 +126,8 @@ public class Npc extends Concrete {
 	}
 
 	public void enableCollision(boolean flag) {
-		collisionEnabled = flag;
+		setCollisionEnabled(flag);
 	}
 
-	public void collideTo(Concrete E) {
-		if (pos.getY() - E.pos.getY() > 0 && pos.getX() - E.pos.getX() < 0) {
-			this.moveLeft(1);
-			this.moveDown(1);
 
-		} else if (pos.getY() - E.pos.getY() > 0
-				&& pos.getX() - E.pos.getX() > 0) {
-			this.moveRight(1);
-			this.moveDown(1);
-
-		} else if (pos.getY() - E.pos.getY() < 0
-				&& pos.getX() - E.pos.getX() < 0) {
-			this.moveLeft(1);
-			this.moveUp(1);
-
-		} else if (pos.getY() - E.pos.getY() < 0
-				&& pos.getX() - E.pos.getX() > 0) {
-			this.moveRight(1);
-			this.moveUp(1);
-
-		}
-	}
 }

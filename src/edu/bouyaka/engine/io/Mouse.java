@@ -1,15 +1,17 @@
-package edu.bouyaka.engine;
+package edu.bouyaka.engine.io;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import edu.bouyaka.engine.Entity;
 import edu.bouyaka.engine.abstracted.Vector;
+import edu.bouyaka.engine.media.Sprite;
 
 public class Mouse extends Entity implements MouseListener, MouseMotionListener {
 	private Vector pos = new Vector(), lastP = new Vector(),
 			lastR = new Vector(), lastC = new Vector();
-	private boolean[] pButton = new boolean[5], cButton = new boolean[5];
+	private boolean[] pButton = new boolean[10], cButton = new boolean[10];
 	private boolean clicked, pressed;
 	private Sprite defaultSprite, clickSprite;
 

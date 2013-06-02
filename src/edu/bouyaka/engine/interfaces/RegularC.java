@@ -8,11 +8,11 @@ public class RegularC implements Collision {
 	public void collide(Entity a, Entity b) {
 		Concrete A = (Concrete) a;
 		Concrete B = (Concrete) b;
-		if (A.collisionEnabled && B.collisionEnabled)
+		if (A.isCollisionEnabled() && B.isCollisionEnabled())
 
-			if (Math.abs(A.pos.getRX() - B.pos.getRX()) < (A.getWidth() + B
+			if (Math.abs(A.getPos().getRX() - B.getPos().getRX()) < (A.getWidth() + B
 					.getWidth()) / 2
-					&& Math.abs(A.pos.getRY() - B.pos.getRY()) < (A.getHeight() + B
+					&& Math.abs(A.getPos().getRY() - B.getPos().getRY()) < (A.getHeight() + B
 							.getHeight()) / 2) {
 				A.collideTo(B);
 				B.collideTo(A);
@@ -24,11 +24,11 @@ public class RegularC implements Collision {
 	public boolean areColliding(Entity a, Entity b) {
 		Concrete A = (Concrete) a;
 		Concrete B = (Concrete) b;
-		if (A.collisionEnabled && B.collisionEnabled)
+		if (A.isCollisionEnabled() && B.isCollisionEnabled())
 
-			if (Math.abs(A.pos.getRX() - B.pos.getRX()) < (A.getWidth() + B
+			if (Math.abs(A.getPos().getRX() - B.getPos().getRX()) < (A.getWidth() + B
 					.getWidth()) / 2
-					&& Math.abs(A.pos.getRY() - B.pos.getRY()) < (A.getHeight() + B
+					&& Math.abs(A.getPos().getRY() - B.getPos().getRY()) < (A.getHeight() + B
 							.getHeight()) / 2) {
 				return true;
 
